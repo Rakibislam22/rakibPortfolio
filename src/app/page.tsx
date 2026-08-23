@@ -182,6 +182,7 @@ export default function Home() {
             </article>
           ))}
         </div>
+        
       </section>
 
       <div id="contact" className="sr-only" />
