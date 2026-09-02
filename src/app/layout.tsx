@@ -13,17 +13,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rakib Portfolio",
-  description: "A computer-screen inspired portfolio landing page for Rakib.",
+  title: "Rakib Islam | OS Desktop Portfolio",
+  description: "An interactive OS Desktop Portfolio for Rakib Islam - Full Stack & UI/UX Engineer with Windows 11, macOS, and Ubuntu themes.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="h-full w-full overflow-hidden">{children}</body>
     </html>
   );
 }

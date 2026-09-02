@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #06112f;
+  --background: #050b14;
   --foreground: #e2e8f1;
 }
 
@@ -16,14 +16,33 @@
   box-sizing: border-box;
 }
 
-html {
+html, body {
   height: 100%;
-}
-
-body {
-  min-height: 100%;
+  width: 100%;
   margin: 0;
+  padding: 0;
+  overflow: hidden;
+  user-select: none;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Custom Sleek OS Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
