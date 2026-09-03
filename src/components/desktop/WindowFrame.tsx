@@ -1,26 +1,28 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { OSType, WindowInstance } from "@/types/os";
+import { OSType, ThemeMode, WindowInstance } from "@/types/os";
 import {
   Minus,
   Square,
   X,
   Maximize2,
   Minimize2,
-  Folder,
+  FolderGit2,
   FileText,
   Terminal,
   Cpu,
   GraduationCap,
   Mail,
   Settings,
-  Trash2
+  Trash2,
+  PlaySquare
 } from "lucide-react";
 
 interface WindowFrameProps {
   win: WindowInstance;
   currentOS: OSType;
+  themeMode?: ThemeMode;
   onClose: (id: string) => void;
   onMinimize: (id: string) => void;
   onMaximize: (id: string) => void;
@@ -33,6 +35,7 @@ interface WindowFrameProps {
 export function WindowFrame({
   win,
   currentOS,
+  themeMode = "dark",
   onClose,
   onMinimize,
   onMaximize,
@@ -111,8 +114,8 @@ export function WindowFrame({
     const deltaW = e.clientX - resizeStartRef.current.mouseX;
     const deltaH = e.clientY - resizeStartRef.current.mouseY;
 
-    const newW = Math.max(320, Math.min(window.innerWidth - win.position.x, resizeStartRef.current.startW + deltaW));
-    const newH = Math.max(260, Math.min(window.innerHeight - win.position.y - 40, resizeStartRef.current.startH + deltaH));
+    const newW = Math.max(win.minSize?.width || 380, resizeStartRef.current.startW + deltaW);
+    const newH = Math.max(win.minSize?.height || 260, resizeStartRef.current.startH + deltaH);
 
     onResize(win.id, { width: newW, height: newH });
   };
@@ -126,35 +129,35 @@ export function WindowFrame({
     }
   };
 
-  // App Icon Renderer
+  if (!win.isOpen || win.isMinimized) return null;
+
+  const isMax = win.isMaximized;
+  const isLight = themeMode === "light";
+
   const renderIcon = (id: string) => {
     switch (id) {
       case "about":
-        return <FileText className="h-3.5 w-3.5 text-cyan-400" />;
+        return <FileText className="h-4 w-4 text-cyan-500" />;
       case "projects":
-        return <Folder className="h-3.5 w-3.5 text-amber-400" />;
+        return <FolderGit2 className="h-4 w-4 text-amber-500" />;
       case "skills":
-        return <Cpu className="h-3.5 w-3.5 text-emerald-400" />;
+        return <Cpu className="h-4 w-4 text-emerald-500" />;
       case "resume":
-        return <GraduationCap className="h-3.5 w-3.5 text-purple-400" />;
+        return <GraduationCap className="h-4 w-4 text-purple-500" />;
       case "contact":
-        return <Mail className="h-3.5 w-3.5 text-sky-400" />;
+        return <Mail className="h-4 w-4 text-sky-500" />;
       case "terminal":
-        return <Terminal className="h-3.5 w-3.5 text-emerald-400" />;
+        return <Terminal className="h-4 w-4 text-emerald-500" />;
+      case "youtube":
+        return <PlaySquare className="h-4 w-4 text-rose-500" />;
       case "settings":
-        return <Settings className="h-3.5 w-3.5 text-slate-300" />;
+        return <Settings className="h-4 w-4 text-slate-400" />;
       case "trash":
-        return <Trash2 className="h-3.5 w-3.5 text-rose-400" />;
+        return <Trash2 className="h-4 w-4 text-rose-500" />;
       default:
-        return <Square className="h-3.5 w-3.5 text-cyan-400" />;
+        return <FileText className="h-4 w-4 text-slate-400" />;
     }
   };
-
-  if (!win.isOpen || win.isMinimized) {
-    return null;
-  }
-
-  const isMax = win.isMaximized;
 
   return (
     <div
@@ -178,24 +181,37 @@ export function WindowFrame({
       className={`absolute flex flex-col overflow-hidden transition-shadow select-none ${isMax
           ? "rounded-none shadow-none"
           : currentOS === "macos"
-            ? "rounded-xl shadow-2xl border border-white/15"
+            ? isLight
+              ? "rounded-xl shadow-2xl border border-slate-300/80 bg-white/95"
+              : "rounded-xl shadow-2xl border border-white/15 bg-slate-900/90"
             : currentOS === "ubuntu"
-              ? "rounded-lg shadow-2xl border border-orange-500/30"
-              : "rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] border border-white/15"
+              ? isLight
+                ? "rounded-lg shadow-2xl border border-orange-300 bg-[#faf6f2]"
+                : "rounded-lg shadow-2xl border border-orange-500/30 bg-[#2c1d27]"
+              : isLight
+                ? "rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.18)] border border-slate-300/90 bg-white"
+                : "rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] border border-white/15 bg-slate-900"
         }`}
     >
-      {/* Title Bar - Adapt to OS */}
+      {/* Title Bar - Adapt to OS & Theme */}
       <div
         onPointerDown={handlePointerDownDrag}
         onPointerMove={handlePointerMoveDrag}
         onPointerUp={handlePointerUpDrag}
         onDoubleClick={() => onMaximize(win.id)}
-        className={`flex items-center justify-between px-3 py-2 cursor-move transition-colors backdrop-blur-xl ${currentOS === "macos"
-            ? "bg-slate-900/85 border-b border-white/10 h-8"
+        className={`flex items-center justify-between px-3 py-2 cursor-move transition-colors backdrop-blur-xl ${
+          currentOS === "macos"
+            ? isLight
+              ? "bg-[#edeef1]/95 border-b border-slate-200 h-8"
+              : "bg-slate-900/85 border-b border-white/10 h-8"
             : currentOS === "ubuntu"
-              ? "bg-[#2c1d27]/90 border-b border-orange-950/40 h-8"
-              : "bg-slate-900/90 border-b border-white/10 h-9"
-          }`}
+              ? isLight
+                ? "bg-[#f5ece6]/95 border-b border-orange-200 h-8"
+                : "bg-[#2c1d27]/90 border-b border-orange-950/40 h-8"
+              : isLight
+                ? "bg-[#f3f4f6]/95 border-b border-slate-200 h-9"
+                : "bg-slate-900/90 border-b border-white/10 h-9"
+        }`}
       >
         {/* macOS Traffic Lights on Left */}
         {currentOS === "macos" ? (
@@ -232,14 +248,18 @@ export function WindowFrame({
                 <span className="opacity-0 group-hover:opacity-100">+</span>
               </button>
             </div>
-            <div className="flex items-center gap-1.5 text-xs text-slate-300 font-medium pl-2">
+            <div className={`flex items-center gap-1.5 text-xs font-medium pl-2 ${
+              isLight ? "text-slate-700" : "text-slate-300"
+            }`}>
               {renderIcon(win.id)}
               <span className="truncate max-w-[200px]">{win.title}</span>
             </div>
           </div>
         ) : (
           /* Windows & Ubuntu: Icon and Title on Left */
-          <div className="flex items-center gap-2 text-xs text-slate-200 font-medium overflow-hidden">
+          <div className={`flex items-center gap-2 text-xs font-medium overflow-hidden ${
+            isLight ? "text-slate-800" : "text-slate-200"
+          }`}>
             {renderIcon(win.id)}
             <span className="truncate max-w-[220px]">{win.title}</span>
           </div>
@@ -253,7 +273,11 @@ export function WindowFrame({
                 e.stopPropagation();
                 onMinimize(win.id);
               }}
-              className="flex h-9 w-11 items-center justify-center text-slate-400 hover:bg-white/10 hover:text-white transition"
+              className={`flex h-9 w-11 items-center justify-center transition ${
+                isLight
+                  ? "text-slate-600 hover:bg-slate-200 hover:text-slate-900"
+                  : "text-slate-400 hover:bg-white/10 hover:text-white"
+              }`}
               title="Minimize"
             >
               <Minus className="h-3.5 w-3.5" />
@@ -263,7 +287,11 @@ export function WindowFrame({
                 e.stopPropagation();
                 onMaximize(win.id);
               }}
-              className="flex h-9 w-11 items-center justify-center text-slate-400 hover:bg-white/10 hover:text-white transition"
+              className={`flex h-9 w-11 items-center justify-center transition ${
+                isLight
+                  ? "text-slate-600 hover:bg-slate-200 hover:text-slate-900"
+                  : "text-slate-400 hover:bg-white/10 hover:text-white"
+              }`}
               title={isMax ? "Restore" : "Maximize"}
             >
               {isMax ? (
@@ -277,7 +305,11 @@ export function WindowFrame({
                 e.stopPropagation();
                 onClose(win.id);
               }}
-              className="flex h-9 w-11 items-center justify-center text-slate-400 hover:bg-red-600 hover:text-white transition"
+              className={`flex h-9 w-11 items-center justify-center transition ${
+                isLight
+                  ? "text-slate-600 hover:bg-red-600 hover:text-white"
+                  : "text-slate-400 hover:bg-red-600 hover:text-white"
+              }`}
               title="Close"
             >
               <X className="h-4 w-4" />
@@ -293,7 +325,11 @@ export function WindowFrame({
                 e.stopPropagation();
                 onMinimize(win.id);
               }}
-              className="flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-slate-300 hover:bg-white/20 transition text-[10px]"
+              className={`flex h-5 w-5 items-center justify-center rounded-full transition text-[10px] ${
+                isLight
+                  ? "bg-stone-200 text-stone-700 hover:bg-stone-300"
+                  : "bg-white/10 text-slate-300 hover:bg-white/20"
+              }`}
               title="Minimize"
             >
               <Minus className="h-3 w-3" />
@@ -303,7 +339,11 @@ export function WindowFrame({
                 e.stopPropagation();
                 onMaximize(win.id);
               }}
-              className="flex h-5 w-5 items-center justify-center rounded-full bg-white/10 text-slate-300 hover:bg-white/20 transition text-[10px]"
+              className={`flex h-5 w-5 items-center justify-center rounded-full transition text-[10px] ${
+                isLight
+                  ? "bg-stone-200 text-stone-700 hover:bg-stone-300"
+                  : "bg-white/10 text-slate-300 hover:bg-white/20"
+              }`}
               title="Maximize"
             >
               <Square className="h-2.5 w-2.5" />
@@ -313,7 +353,7 @@ export function WindowFrame({
                 e.stopPropagation();
                 onClose(win.id);
               }}
-              className="flex h-5 w-5 items-center justify-center rounded-full bg-orange-600/80 text-white hover:bg-orange-600 transition text-[10px]"
+              className="flex h-5 w-5 items-center justify-center rounded-full bg-orange-600/90 text-white hover:bg-orange-600 transition text-[10px]"
               title="Close"
             >
               <X className="h-3 w-3" />
@@ -323,7 +363,9 @@ export function WindowFrame({
       </div>
 
       {/* Window Body */}
-      <div className="relative flex-1 overflow-hidden bg-slate-950/95 backdrop-blur-md">
+      <div className={`relative flex-1 overflow-hidden backdrop-blur-md ${
+        isLight ? "bg-slate-50 text-slate-900" : "bg-slate-950/95 text-slate-100"
+      }`}>
         {children}
       </div>
 
@@ -333,7 +375,11 @@ export function WindowFrame({
           onPointerDown={handlePointerDownResize}
           onPointerMove={handlePointerMoveResize}
           onPointerUp={handlePointerUpResize}
-          className="absolute bottom-0 right-0 h-4 w-4 cursor-se-resize flex items-end justify-end p-0.5 text-slate-500 hover:text-cyan-400"
+          className={`absolute bottom-0 right-0 h-4 w-4 cursor-se-resize flex items-end justify-end p-0.5 transition ${
+            isLight
+              ? "text-slate-400 hover:text-cyan-600"
+              : "text-slate-500 hover:text-cyan-400"
+          }`}
         >
           <svg className="h-2.5 w-2.5" viewBox="0 0 6 6" fill="currentColor">
             <circle cx="5" cy="5" r="0.8" />

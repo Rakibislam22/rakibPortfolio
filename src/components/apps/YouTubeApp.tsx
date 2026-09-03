@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { useOS } from "@/context/OSContext";
 import {
   Play,
   Search,
@@ -9,7 +10,6 @@ import {
   ThumbsUp,
   Share2,
   Radio,
-  ExternalLink,
   Sparkles,
   Flame
 } from "lucide-react";
@@ -42,7 +42,7 @@ const DEFAULT_VIDEOS: VideoItem[] = [
   },
   {
     id: "convox-demo",
-    youtubeId: "dQw4w9WgXcQ", // Video player demo / custom embed
+    youtubeId: "dQw4w9WgXcQ", // Video player demo
     title: "ConvoX - Real-Time Messaging & Collaboration Platform Demo",
     channel: "Md Rakib Ali",
     avatar: "/profile-logo.jpg",
@@ -99,89 +99,88 @@ const DEFAULT_VIDEOS: VideoItem[] = [
 ];
 
 export function YouTubeApp() {
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const { themeMode } = useOS();
+  const isLight = themeMode === "light";
+
   const [activeVideo, setActiveVideo] = useState<VideoItem>(DEFAULT_VIDEOS[0]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [searchQuery, setSearchQuery] = useState("");
   const [likes, setLikes] = useState<Record<string, number>>({
     "lofi-stream": 1420,
-    "convox-demo": 320,
-    "nextjs-mastery": 890,
-    "react-perf": 650,
-    "redis-system-design": 1100,
-    "synthwave-coding": 540
+    "convox-demo": 312,
+    "nextjs-mastery": 5200,
+    "react-perf": 3890,
+    "redis-system-design": 8900,
+    "synthwave-coding": 940
   });
   const [hasLiked, setHasLiked] = useState<Record<string, boolean>>({});
 
   const categories = ["All", "Lo-Fi Beats", "Project Demos", "MERN Stack", "Tech Talks"];
 
-  const handleLike = (id: string) => {
-    setHasLiked((prev) => {
-      const isLiked = !prev[id];
-      setLikes((l) => ({
-        ...l,
-        [id]: (l[id] || 0) + (isLiked ? 1 : -1)
-      }));
-      return { ...prev, [id]: isLiked };
-    });
-  };
-
   const filteredVideos = DEFAULT_VIDEOS.filter((v) => {
-    const matchesCat =
-      selectedCategory === "All" || v.category === selectedCategory;
+    const matchesCat = selectedCategory === "All" || v.category === selectedCategory;
     const matchesSearch =
       v.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       v.channel.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      v.description.toLowerCase().includes(searchQuery.toLowerCase());
+      v.category.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCat && matchesSearch;
   });
 
+  const handleLike = (id: string) => {
+    if (hasLiked[id]) {
+      setLikes((prev) => ({ ...prev, [id]: prev[id] - 1 }));
+      setHasLiked((prev) => ({ ...prev, [id]: false }));
+    } else {
+      setLikes((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
+      setHasLiked((prev) => ({ ...prev, [id]: true }));
+    }
+  };
+
   return (
-    <div className="flex h-full flex-col bg-slate-950 text-slate-100 selection:bg-rose-500/30">
+    <div className={`flex h-full flex-col selection:bg-rose-500/30 ${isLight ? "bg-slate-50 text-slate-900" : "bg-slate-950 text-slate-100"
+      }`}>
       {/* Top YouTube Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 bg-slate-900/90 px-4 py-2.5 backdrop-blur-md">
-        {/* Logo */}
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-7 w-9 items-center justify-center rounded-lg bg-rose-600 text-white shadow-md shadow-rose-600/30">
-            <Play className="h-4 w-4 fill-white ml-0.5" />
+      <div className={`flex flex-wrap items-center justify-between gap-3 border-b px-4 py-2.5 backdrop-blur-md ${isLight ? "border-slate-200 bg-white/90" : "border-white/10 bg-slate-900/80"
+        }`}>
+        {/* Brand */}
+        <div className="flex items-center gap-2">
+          <div className="flex h-6 w-8 items-center justify-center rounded-lg bg-rose-600 text-white shadow-md">
+            <Play className="h-3 w-3 fill-white stroke-none ml-0.5" />
           </div>
-          <span className="text-sm font-bold tracking-tight text-white flex items-center gap-1">
-            YouTube <span className="text-[10px] text-rose-400 font-mono">DevStudio</span>
+          <span className={`font-bold tracking-tight text-sm ${isLight ? "text-slate-900" : "text-white"}`}>
+            YouTube <span className="text-[10px] text-rose-500 uppercase tracking-widest font-bold">Studio</span>
           </span>
         </div>
 
-        {/* Search Bar */}
-        <div className="relative flex-1 max-w-md mx-2">
-          <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
+        {/* Search */}
+        <div className="relative">
+          <Search className="absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
-            placeholder="Search videos, topics, or beats..."
+            placeholder="Search lo-fi, demos, tutorials..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-8 w-full rounded-full border border-white/10 bg-black/50 pl-9 pr-4 text-xs text-white placeholder-slate-500 focus:border-rose-500/50 focus:outline-none"
+            className={`h-7 w-48 sm:w-64 rounded-full border pl-8 pr-3 text-xs focus:outline-none focus:border-rose-500/60 ${isLight
+                ? "border-slate-300 bg-white text-slate-900 placeholder-slate-400"
+                : "border-white/10 bg-black/40 text-white placeholder-slate-500"
+              }`}
           />
         </div>
-
-        {/* Action button */}
-        <a
-          href={`https://www.youtube.com/watch?v=${activeVideo.youtubeId}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-slate-300 hover:border-rose-500/40 hover:text-white transition"
-        >
-          <ExternalLink className="h-3 w-3" /> Open in YouTube
-        </a>
       </div>
 
-      {/* Categories Bar */}
-      <div className="flex items-center gap-1.5 border-b border-white/5 bg-slate-900/40 px-4 py-2 overflow-x-auto">
-        <SlidersHorizontal className="mr-1 h-3.5 w-3.5 text-slate-500 shrink-0" />
+      {/* Categories Filter Strip */}
+      <div className={`flex items-center gap-1.5 border-b px-4 py-2 overflow-x-auto ${isLight ? "border-slate-200 bg-slate-100/70" : "border-white/5 bg-slate-900/40"
+        }`}>
+        <SlidersHorizontal className="mr-1 h-3.5 w-3.5 text-slate-400 shrink-0" />
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
             className={`rounded-full px-3 py-1 text-xs font-medium transition whitespace-nowrap ${selectedCategory === cat
-                ? "bg-rose-500/20 text-rose-300 border border-rose-500/30"
-                : "text-slate-400 hover:bg-white/5 hover:text-slate-200"
+                ? "bg-rose-600 text-white shadow-xs"
+                : isLight
+                  ? "text-slate-600 hover:bg-slate-200/80"
+                  : "text-slate-400 hover:bg-white/5 hover:text-slate-200"
               }`}
           >
             {cat}
@@ -189,14 +188,15 @@ export function YouTubeApp() {
         ))}
       </div>
 
-      {/* Main Content: Player + Playlist */}
-      <div className="flex-1 overflow-y-auto p-4 sm:p-6 grid gap-6 lg:grid-cols-[1.5fr_1fr]">
-        {/* Left: Active Video Player */}
+      {/* Main Content Layout */}
+      <div className="flex-1 overflow-y-auto p-4 sm:p-6 grid gap-6 lg:grid-cols-[1.4fr_0.9fr]">
+        {/* Left: Active Video Player Area */}
         <div className="space-y-4">
-          {/* 16:9 Video Frame */}
-          <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl">
+          {/* 16:9 Aspect Video Player */}
+          <div className={`relative aspect-video w-full overflow-hidden rounded-2xl border shadow-2xl ${isLight ? "border-slate-300 bg-black" : "border-white/10 bg-black"
+            }`}>
             <iframe
-              src={`https://www.youtube-nocookie.com/embed/${activeVideo.youtubeId}?autoplay=1&enablejsapi=1`}
+              src={`https://www.youtube-nocookie.com/embed/${activeVideo.youtubeId}?autoplay=1&rel=0&modestbranding=1`}
               title={activeVideo.title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
@@ -206,14 +206,16 @@ export function YouTubeApp() {
 
           {/* Video Title & Actions */}
           <div className="space-y-3">
-            <h1 className="text-base sm:text-lg font-bold text-white tracking-tight leading-snug">
+            <h1 className={`text-base sm:text-lg font-bold tracking-tight leading-snug ${isLight ? "text-slate-900" : "text-white"
+              }`}>
               {activeVideo.title}
             </h1>
 
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
+            <div className={`flex flex-wrap items-center justify-between gap-3 border-b pb-3 ${isLight ? "border-slate-200" : "border-white/10"
+              }`}>
               {/* Channel Info */}
               <div className="flex items-center gap-3">
-                <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-white/10 bg-slate-800">
+                <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-slate-300 bg-slate-200">
                   <Image
                     src={activeVideo.avatar}
                     alt={activeVideo.channel}
@@ -223,10 +225,10 @@ export function YouTubeApp() {
                   />
                 </div>
                 <div>
-                  <h3 className="text-xs font-bold text-white">
+                  <h3 className={`text-xs font-bold ${isLight ? "text-slate-900" : "text-white"}`}>
                     {activeVideo.channel}
                   </h3>
-                  <span className="text-[10px] text-slate-400">
+                  <span className={`text-[10px] ${isLight ? "text-slate-500" : "text-slate-400"}`}>
                     {activeVideo.views} • {activeVideo.uploaded}
                   </span>
                 </div>
@@ -238,7 +240,9 @@ export function YouTubeApp() {
                   onClick={() => handleLike(activeVideo.id)}
                   className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition ${hasLiked[activeVideo.id]
                       ? "bg-rose-600 text-white"
-                      : "bg-white/10 text-slate-200 hover:bg-white/15"
+                      : isLight
+                        ? "bg-slate-200 text-slate-800 hover:bg-slate-300"
+                        : "bg-white/10 text-slate-200 hover:bg-white/15"
                     }`}
                 >
                   <ThumbsUp className="h-3.5 w-3.5" />
@@ -252,7 +256,10 @@ export function YouTubeApp() {
                     );
                     alert("Video link copied to clipboard!");
                   }}
-                  className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-slate-200 hover:bg-white/15 transition"
+                  className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition ${isLight
+                      ? "bg-slate-200 text-slate-800 hover:bg-slate-300"
+                      : "bg-white/10 text-slate-200 hover:bg-white/15"
+                    }`}
                 >
                   <Share2 className="h-3.5 w-3.5" /> Share
                 </button>
@@ -260,8 +267,11 @@ export function YouTubeApp() {
             </div>
 
             {/* Video Description Card */}
-            <div className="rounded-xl border border-white/5 bg-slate-900/60 p-3.5 text-xs text-slate-300 leading-relaxed space-y-1.5">
-              <div className="flex items-center gap-2 font-semibold text-rose-300 text-[11px]">
+            <div className={`rounded-xl p-3.5 text-xs leading-relaxed space-y-1.5 border ${isLight
+                ? "border-slate-200 bg-white shadow-xs text-slate-700"
+                : "border-white/5 bg-slate-900/60 text-slate-300"
+              }`}>
+              <div className="flex items-center gap-2 font-semibold text-rose-600 text-[11px]">
                 <Sparkles className="h-3 w-3" /> About this video
               </div>
               <p>{activeVideo.description}</p>
@@ -272,10 +282,11 @@ export function YouTubeApp() {
         {/* Right: Suggested Videos / Playlist */}
         <div className="space-y-3">
           <div className="flex items-center justify-between pb-1">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <Flame className="h-3.5 w-3.5 text-rose-400" /> Up Next / Video Queue
+            <h3 className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 ${isLight ? "text-slate-700" : "text-slate-400"
+              }`}>
+              <Flame className="h-3.5 w-3.5 text-rose-500" /> Up Next / Video Queue
             </h3>
-            <span className="text-[10px] text-slate-500">
+            <span className={`text-[10px] ${isLight ? "text-slate-500" : "text-slate-500"}`}>
               {filteredVideos.length} videos
             </span>
           </div>
@@ -286,12 +297,16 @@ export function YouTubeApp() {
                 key={video.id}
                 onClick={() => setActiveVideo(video)}
                 className={`group flex gap-3 rounded-xl border p-2.5 transition cursor-pointer ${activeVideo.id === video.id
-                    ? "border-rose-500/50 bg-rose-950/20 ring-1 ring-rose-500/30"
-                    : "border-white/5 bg-slate-900/50 hover:border-white/15 hover:bg-slate-900"
+                    ? isLight
+                      ? "border-rose-400 bg-rose-50/70 ring-1 ring-rose-400/40 shadow-xs"
+                      : "border-rose-500/50 bg-rose-950/20 ring-1 ring-rose-500/30"
+                    : isLight
+                      ? "border-slate-200 bg-white/90 hover:border-slate-300 hover:bg-slate-100"
+                      : "border-white/5 bg-slate-900/50 hover:border-white/15 hover:bg-slate-900"
                   }`}
               >
                 {/* Video Thumbnail */}
-                <div className="relative h-20 w-32 shrink-0 overflow-hidden rounded-lg bg-black border border-white/10">
+                <div className="relative h-20 w-32 shrink-0 overflow-hidden rounded-lg bg-black border border-slate-300/30">
                   <Image
                     src={`https://img.youtube.com/vi/${video.youtubeId}/mqdefault.jpg`}
                     alt={video.title}
@@ -317,14 +332,17 @@ export function YouTubeApp() {
                 {/* Details */}
                 <div className="flex flex-col justify-between overflow-hidden">
                   <div>
-                    <h4 className="text-xs font-semibold text-white line-clamp-2 leading-snug group-hover:text-rose-200 transition">
+                    <h4 className={`text-xs font-semibold line-clamp-2 leading-snug transition ${isLight
+                        ? "text-slate-900 group-hover:text-rose-600"
+                        : "text-white group-hover:text-rose-200"
+                      }`}>
                       {video.title}
                     </h4>
-                    <p className="mt-1 text-[11px] text-slate-400 truncate">
+                    <p className={`mt-1 text-[11px] truncate ${isLight ? "text-slate-500" : "text-slate-400"}`}>
                       {video.channel}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 text-[10px] text-slate-500">
+                  <div className={`flex items-center gap-2 text-[10px] ${isLight ? "text-slate-500" : "text-slate-500"}`}>
                     <span>{video.views}</span>
                     <span>•</span>
                     <span className="capitalize">{video.category}</span>
@@ -338,4 +356,3 @@ export function YouTubeApp() {
     </div>
   );
 }
-

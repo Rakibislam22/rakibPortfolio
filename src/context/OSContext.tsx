@@ -1,13 +1,16 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-import { AppId, OSType, WindowInstance } from "@/types/os";
+import { AppId, OSType, ThemeMode, WindowInstance } from "@/types/os";
 import { portfolioData } from "@/data/portfolioData";
 import { useOSDetection } from "@/hooks/useOSDetection";
 
 interface OSContextType {
   currentOS: OSType;
   setOS: (os: OSType) => void;
+  themeMode: ThemeMode;
+  setThemeMode: (mode: ThemeMode) => void;
+  toggleThemeMode: () => void;
   wallpaper: string;
   setWallpaper: (wp: string) => void;
   windows: Record<AppId, WindowInstance>;
@@ -28,7 +31,7 @@ const OSContext = createContext<OSContextType | undefined>(undefined);
 const initialWindows: Record<AppId, WindowInstance> = {
   about: {
     id: "about",
-    title: "About Rakib Islam",
+    title: "About Md Rakib Ali",
     icon: "FileText",
     isOpen: true, // Opened by default as a welcome window!
     isMinimized: false,
@@ -83,7 +86,7 @@ const initialWindows: Record<AppId, WindowInstance> = {
     isMaximized: false,
     zIndex: 1,
     position: { x: 180, y: 90 },
-    size: { width: 720, height: 490 },
+    size: { width: 700, height: 480 },
     component: null
   },
   terminal: {
@@ -141,8 +144,40 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
   const [userOSOverride, setUserOSOverride] = useState<OSType | null>(null);
   const currentOS = userOSOverride ?? detectedOS;
 
+  const [themeMode, setThemeModeState] = useState<ThemeMode>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const savedTheme = localStorage.getItem("rakib_portfolio_theme") as ThemeMode | null;
+        if (savedTheme === "light" || savedTheme === "dark") {
+          return savedTheme;
+        }
+      } catch { }
+    }
+    return "dark";
+  });
+
+  const setThemeMode = (mode: ThemeMode) => {
+    setThemeModeState(mode);
+    try {
+      localStorage.setItem("rakib_portfolio_theme", mode);
+    } catch { }
+
+    // Automatically switch wallpaper to matching theme wallpaper if available
+    const matchingWp = portfolioData.wallpapers.find(
+      (w) => w.osTarget === currentOS && w.mode === mode
+    ) || portfolioData.wallpapers.find((w) => w.mode === mode);
+    if (matchingWp) {
+      setWallpaperOverride(matchingWp.bgClass);
+    }
+  };
+
+  const toggleThemeMode = () => {
+    const nextMode = themeMode === "dark" ? "light" : "dark";
+    setThemeMode(nextMode);
+  };
+
   const defaultWallpaper =
-    portfolioData.wallpapers.find((w) => w.osTarget === currentOS)?.bgClass ||
+    portfolioData.wallpapers.find((w) => w.osTarget === currentOS && (!w.mode || w.mode === themeMode))?.bgClass ||
     portfolioData.wallpapers[0].bgClass;
   const [wallpaperOverride, setWallpaperOverride] = useState<string | null>(null);
   const wallpaper = wallpaperOverride ?? defaultWallpaper;
@@ -156,7 +191,9 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
     try {
       localStorage.setItem("rakib_portfolio_os", os);
     } catch { }
-    const matchingWp = portfolioData.wallpapers.find((w) => w.osTarget === os);
+    const matchingWp = portfolioData.wallpapers.find(
+      (w) => w.osTarget === os && (!w.mode || w.mode === themeMode)
+    ) || portfolioData.wallpapers.find((w) => w.osTarget === os);
     if (matchingWp) {
       setWallpaperOverride(matchingWp.bgClass);
     }
@@ -188,8 +225,7 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
       ...prev,
       [appId]: {
         ...prev[appId],
-        isOpen: false,
-        isMinimized: false
+        isOpen: false
       }
     }));
     if (activeWindowId === appId) {
@@ -220,6 +256,7 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
         isMaximized: !prev[appId].isMaximized
       }
     }));
+    setActiveWindowId(appId);
   };
 
   const focusWindow = (id: string) => {
@@ -227,6 +264,7 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
     const nextZ = topZ + 1;
     setTopZ(nextZ);
     setActiveWindowId(appId);
+
     setWindows((prev) => ({
       ...prev,
       [appId]: {
@@ -241,9 +279,7 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
     const win = windows[id];
     if (!win.isOpen) {
       openApp(id);
-      return;
-    }
-    if (win.isMinimized) {
+    } else if (win.isMinimized) {
       focusWindow(id);
     } else if (activeWindowId === id) {
       minimizeWindow(id);
@@ -284,6 +320,9 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
       value={{
         currentOS,
         setOS,
+        themeMode,
+        setThemeMode,
+        toggleThemeMode,
         wallpaper,
         setWallpaper,
         windows,
@@ -311,4 +350,3 @@ export function useOS() {
   }
   return context;
 }
-

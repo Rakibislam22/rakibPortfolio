@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 export type OSType = "windows" | "macos" | "ios" | "android" | "ubuntu";
+export type ThemeMode = "light" | "dark";
 
 export type AppId =
   | "projects"
@@ -146,5 +147,6 @@ export interface PortfolioData {
     thumbnail: string;
     bgClass: string;
     osTarget?: OSType;
+    mode?: ThemeMode;
   }[];
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { useOS } from "@/context/OSContext";
 import { portfolioData } from "@/data/portfolioData";
 import { OSType } from "@/types/os";
 
@@ -16,6 +17,9 @@ interface TerminalAppProps {
 }
 
 export function TerminalApp({ onSwitchOS }: TerminalAppProps) {
+  const { themeMode, setThemeMode } = useOS();
+  const isLight = themeMode === "light";
+
   const [lines, setLines] = useState<TerminalLine[]>([
     {
       id: "init-1",
@@ -64,30 +68,32 @@ export function TerminalApp({ onSwitchOS }: TerminalAppProps) {
           id: Math.random().toString(),
           type: "output",
           content: (
-            <div className="space-y-1 text-slate-300">
-              <p className="text-cyan-300 font-bold">Available Commands:</p>
+            <div className="space-y-1">
+              <p className="text-cyan-500 font-bold">Available Commands:</p>
               <div className="grid grid-cols-[140px_1fr] gap-1 text-xs">
-                <span className="text-emerald-400">neofetch</span>
-                <span>Display system specs & developer info</span>
-                <span className="text-emerald-400">about</span>
+                <span className="text-emerald-500 font-semibold">neofetch</span>
+                <span>Display system specs &amp; developer info</span>
+                <span className="text-emerald-500 font-semibold">about</span>
                 <span>Display bio and engineer summary</span>
-                <span className="text-emerald-400">skills</span>
+                <span className="text-emerald-500 font-semibold">skills</span>
                 <span>List technical competencies and levels</span>
-                <span className="text-emerald-400">projects</span>
+                <span className="text-emerald-500 font-semibold">projects</span>
                 <span>List featured software projects</span>
-                <span className="text-emerald-400">education</span>
-                <span>Show degrees, universities & GPA</span>
-                <span className="text-emerald-400">contact</span>
+                <span className="text-emerald-500 font-semibold">education</span>
+                <span>Show degrees, universities &amp; GPA</span>
+                <span className="text-emerald-500 font-semibold">contact</span>
                 <span>Display email and social channels</span>
-                <span className="text-emerald-400">theme &lt;os&gt;</span>
-                <span>Switch OS theme (windows | macos | ios | android | ubuntu)</span>
-                <span className="text-emerald-400">clear</span>
+                <span className="text-emerald-500 font-semibold">youtube / lofi</span>
+                <span>Open video player / Lo-Fi coding beats</span>
+                <span className="text-emerald-500 font-semibold">theme &lt;mode/os&gt;</span>
+                <span>Switch theme: dark | light | windows | macos | ios | android | ubuntu</span>
+                <span className="text-emerald-500 font-semibold">clear</span>
                 <span>Clear the terminal screen</span>
-                <span className="text-emerald-400">date</span>
+                <span className="text-emerald-500 font-semibold">date</span>
                 <span>Display current date and time</span>
-                <span className="text-emerald-400">whoami</span>
+                <span className="text-emerald-500 font-semibold">whoami</span>
                 <span>Display active user info</span>
-                <span className="text-emerald-400">sudo</span>
+                <span className="text-emerald-500 font-semibold">sudo</span>
                 <span>Execute command with superuser privileges</span>
               </div>
             </div>
@@ -101,30 +107,33 @@ export function TerminalApp({ onSwitchOS }: TerminalAppProps) {
           id: Math.random().toString(),
           type: "ascii",
           content: (
-            <div className="flex flex-col sm:flex-row gap-4 font-mono text-xs my-2">
-              <pre className="text-cyan-400 leading-tight select-none">
-                {`   _____       _    _ _     
-  |  __ \\     | |  (_) |    
-  | |__) |__ _| | ___| |__  
-  |  _  // _\` | |/ / | '_ \\ 
-  | | \\ \\ (_| |   <| | |_) |
-  |_|  \\_\\__,_|_|\\_\\_|_.__/ `}
+            <div className="grid sm:grid-cols-[200px_1fr] gap-4 my-2 text-xs">
+              <pre className="text-cyan-500 text-[10px] leading-tight font-mono select-none">
+                {`
+   ██████╗  █████╗ ██╗  ██╗██╗██████╗ 
+   ██╔══██╗██╔══██╗██║ ██╔╝██║██╔══██╗
+   ██████╔╝███████║█████╔╝ ██║██████╔╝
+   ██╔══██╗██╔══██║██╔═██╗ ██║██╔══██╗
+   ██║  ██║██║  ██║██║  ██╗██║██████╔╝
+   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═════╝ 
+`}
               </pre>
-              <div className="space-y-0.5 text-slate-300">
-                <p className="text-cyan-300 font-bold">{portfolioData.name} @ Portfolio</p>
-                <p className="text-slate-500">-------------------------------</p>
-                <p><span className="text-emerald-400">Role:</span> {portfolioData.title}</p>
-                <p><span className="text-emerald-400">Stack:</span> React 19 / Next.js 16 / Node.js / MongoDB</p>
-                <p><span className="text-emerald-400">Location:</span> {portfolioData.location}</p>
-                <p><span className="text-emerald-400">LeetCode:</span> 150+ Problems Solved</p>
-                <p><span className="text-emerald-400">Status:</span> {portfolioData.status}</p>
-                <div className="flex gap-1 pt-1">
-                  <span className="h-3 w-3 bg-red-500 rounded-sm" />
-                  <span className="h-3 w-3 bg-green-500 rounded-sm" />
-                  <span className="h-3 w-3 bg-yellow-500 rounded-sm" />
-                  <span className="h-3 w-3 bg-blue-500 rounded-sm" />
-                  <span className="h-3 w-3 bg-purple-500 rounded-sm" />
-                  <span className="h-3 w-3 bg-cyan-500 rounded-sm" />
+              <div className="space-y-1">
+                <p className="text-white font-bold">{portfolioData.name}</p>
+                <p className="text-slate-400">--------------------------</p>
+                <p><span className="text-cyan-400 font-semibold">OS:</span> RakibOS v3.2 (x86_64 Multi-OS Kernel)</p>
+                <p><span className="text-cyan-400 font-semibold">Host:</span> {portfolioData.location}</p>
+                <p><span className="text-cyan-400 font-semibold">Kernel:</span> Next.js 16 (App Router) + React 19</p>
+                <p><span className="text-cyan-400 font-semibold">Uptime:</span> 5+ Years Full Stack Experience</p>
+                <p><span className="text-cyan-400 font-semibold">Shell:</span> TypeScript 5.8 + Tailwind CSS v4</p>
+                <p><span className="text-cyan-400 font-semibold">Theme:</span> {themeMode.toUpperCase()} Mode</p>
+                <p><span className="text-cyan-400 font-semibold">Status:</span> {portfolioData.status}</p>
+                <div className="flex gap-1.5 pt-2">
+                  <span className="h-3 w-3 rounded-full bg-cyan-400" />
+                  <span className="h-3 w-3 rounded-full bg-emerald-400" />
+                  <span className="h-3 w-3 rounded-full bg-amber-400" />
+                  <span className="h-3 w-3 rounded-full bg-purple-400" />
+                  <span className="h-3 w-3 rounded-full bg-rose-400" />
                 </div>
               </div>
             </div>
@@ -137,11 +146,10 @@ export function TerminalApp({ onSwitchOS }: TerminalAppProps) {
           id: Math.random().toString(),
           type: "output",
           content: (
-            <div className="space-y-2 text-slate-300">
-              <p className="text-cyan-300 font-semibold">{portfolioData.name} - {portfolioData.title}</p>
-              {portfolioData.bio.map((p, i) => (
-                <p key={i} className="text-xs">{p}</p>
-              ))}
+            <div className="space-y-2">
+              <p className="text-cyan-400 font-bold">{portfolioData.name} — {portfolioData.title}</p>
+              <p className="text-slate-300 leading-relaxed">{portfolioData.tagline}</p>
+              <p className="text-slate-400 text-xs">{portfolioData.bio[0]}</p>
             </div>
           )
         });
@@ -152,14 +160,16 @@ export function TerminalApp({ onSwitchOS }: TerminalAppProps) {
           id: Math.random().toString(),
           type: "output",
           content: (
-            <div className="space-y-2 text-slate-300">
-              <p className="text-cyan-300 font-semibold">Technical Stack:</p>
-              <div className="space-y-1 text-xs">
-                {portfolioData.skillCategories.map((c) => (
-                  <p key={c.category}>
-                    <span className="text-emerald-400">{c.category}:</span>{" "}
-                    {c.skills.map((s) => s.name).join(", ")}
-                  </p>
+            <div className="space-y-2">
+              <p className="text-cyan-400 font-bold">Skills &amp; Tech Stack:</p>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {portfolioData.skillCategories.map((cat) => (
+                  <div key={cat.category} className="rounded border border-white/10 p-2 bg-black/30">
+                    <p className="text-emerald-400 font-semibold text-xs mb-1">{cat.category}</p>
+                    <p className="text-slate-300 text-[11px]">
+                      {cat.skills.map((s) => s.name).join(", ")}
+                    </p>
+                  </div>
                 ))}
               </div>
             </div>
@@ -172,14 +182,13 @@ export function TerminalApp({ onSwitchOS }: TerminalAppProps) {
           id: Math.random().toString(),
           type: "output",
           content: (
-            <div className="space-y-2 text-slate-300">
-              <p className="text-cyan-300 font-semibold">Featured Projects:</p>
-              <div className="space-y-1.5 text-xs">
+            <div className="space-y-2">
+              <p className="text-cyan-400 font-bold">Featured Projects:</p>
+              <div className="space-y-1.5">
                 {portfolioData.projects.map((p) => (
-                  <div key={p.id}>
-                    <p className="text-white font-medium">⚡ {p.title} [{p.category}]</p>
-                    <p className="text-slate-400 pl-4">{p.description}</p>
-                    <p className="text-cyan-400/80 pl-4">Stack: {p.tags.join(" • ")}</p>
+                  <div key={p.id} className="text-xs">
+                    <span className="text-emerald-400 font-semibold">• {p.title}</span>: {p.description} (
+                    <span className="text-cyan-300">{p.tags.slice(0, 3).join(", ")}</span>)
                   </div>
                 ))}
               </div>
@@ -188,17 +197,26 @@ export function TerminalApp({ onSwitchOS }: TerminalAppProps) {
         });
         break;
 
+      case "youtube":
+      case "lofi":
+        newLines.push({
+          id: Math.random().toString(),
+          type: "output",
+          text: "▶ Launching YouTube Studio & Lo-Fi Coding Player... Enjoy the beats!"
+        });
+        break;
+
       case "education":
         newLines.push({
           id: Math.random().toString(),
           type: "output",
           content: (
-            <div className="space-y-2 text-slate-300 text-xs">
-              <p className="text-cyan-300 font-semibold">Academic History:</p>
-              {portfolioData.education.map((e, idx) => (
-                <div key={idx}>
-                  <p className="text-white font-medium">{e.degree} ({e.duration})</p>
-                  <p className="text-slate-400">{e.institution} - GPA: {e.gpa}</p>
+            <div className="space-y-2">
+              <p className="text-cyan-400 font-bold">Education Credentials:</p>
+              {portfolioData.education.map((edu, idx) => (
+                <div key={idx} className="text-xs">
+                  <p className="font-semibold text-white">{edu.degree} — {edu.institution}</p>
+                  <p className="text-slate-400">{edu.duration} • Grade: {edu.gpa}</p>
                 </div>
               ))}
             </div>
@@ -211,62 +229,43 @@ export function TerminalApp({ onSwitchOS }: TerminalAppProps) {
           id: Math.random().toString(),
           type: "output",
           content: (
-            <div className="space-y-1 text-slate-300 text-xs">
-              <p className="text-cyan-300 font-semibold">Contact Coordinates:</p>
-              <p><span className="text-emerald-400">Email:</span> {portfolioData.email}</p>
-              {portfolioData.socials.phone && (
-                <p><span className="text-emerald-400">Phone:</span> {portfolioData.socials.phone}</p>
-              )}
-              <p><span className="text-emerald-400">GitHub:</span> {portfolioData.socials.github}</p>
-              <p><span className="text-emerald-400">LinkedIn:</span> {portfolioData.socials.linkedin}</p>
-              <p><span className="text-emerald-400">Twitter:</span> {portfolioData.socials.twitter}</p>
-              {portfolioData.socials.leetcode && (
-                <p><span className="text-emerald-400">LeetCode:</span> {portfolioData.socials.leetcode}</p>
-              )}
-              {portfolioData.socials.facebook && (
-                <p><span className="text-emerald-400">Facebook:</span> {portfolioData.socials.facebook}</p>
-              )}
-            </div>
-          )
-        });
-        break;
-
-      case "youtube":
-      case "lofi":
-      case "media":
-        newLines.push({
-          id: Math.random().toString(),
-          type: "output",
-          content: (
-            <div className="space-y-1 text-slate-300 text-xs">
-              <p className="text-rose-400 font-semibold">▶ YouTube DevStudio & Lo-Fi Beats:</p>
-              <p>• Launch the YouTube app from desktop or dock to listen to live Lo-Fi Beats and watch ConvoX demos.</p>
-              <p className="text-slate-400 font-mono">Stream: Lofi Hip Hop Radio 📚 Beats to Relax / Study / Code to</p>
+            <div className="space-y-1 text-xs">
+              <p className="text-cyan-400 font-bold">Contact Channels:</p>
+              <p>Email: <a href={`mailto:${portfolioData.email}`} className="text-cyan-300 underline">{portfolioData.email}</a></p>
+              <p>GitHub: <a href={portfolioData.socials.github} target="_blank" rel="noreferrer" className="text-cyan-300 underline">{portfolioData.socials.github}</a></p>
+              <p>LinkedIn: <a href={portfolioData.socials.linkedin} target="_blank" rel="noreferrer" className="text-cyan-300 underline">{portfolioData.socials.linkedin}</a></p>
             </div>
           )
         });
         break;
 
       case "theme":
-        const targetOS = args[0]?.toLowerCase() as OSType;
-        if (
-          targetOS === "windows" ||
-          targetOS === "macos" ||
-          targetOS === "ios" ||
-          targetOS === "android" ||
-          targetOS === "ubuntu"
-        ) {
-          onSwitchOS?.(targetOS);
+        const target = args[0]?.toLowerCase();
+        if (target === "light" || target === "dark") {
+          setThemeMode(target);
           newLines.push({
             id: Math.random().toString(),
             type: "output",
-            text: `✓ Switched desktop theme to ${targetOS}.`
+            text: `✓ Switched appearance theme to ${target.toUpperCase()} MODE.`
+          });
+        } else if (
+          target === "windows" ||
+          target === "macos" ||
+          target === "ios" ||
+          target === "android" ||
+          target === "ubuntu"
+        ) {
+          onSwitchOS?.(target as OSType);
+          newLines.push({
+            id: Math.random().toString(),
+            type: "output",
+            text: `✓ Switched desktop environment to ${target}.`
           });
         } else {
           newLines.push({
             id: Math.random().toString(),
             type: "error",
-            text: "Usage: theme [windows | macos | ios | android | ubuntu]"
+            text: "Usage: theme [light | dark | windows | macos | ios | android | ubuntu]"
           });
         }
         break;
@@ -346,7 +345,10 @@ export function TerminalApp({ onSwitchOS }: TerminalAppProps) {
   return (
     <div
       onClick={() => inputRef.current?.focus()}
-      className="flex h-full flex-col bg-slate-950/95 font-mono text-xs text-slate-200 selection:bg-emerald-500/40 p-4 overflow-y-auto cursor-text"
+      className={`flex h-full flex-col font-mono text-xs p-4 overflow-y-auto cursor-text ${isLight
+          ? "bg-slate-900 text-slate-100 selection:bg-emerald-500/40"
+          : "bg-slate-950/95 text-slate-200 selection:bg-emerald-500/40"
+        }`}
     >
       <div className="space-y-2">
         {lines.map((line) => (
