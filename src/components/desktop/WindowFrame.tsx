@@ -186,18 +186,18 @@ export function WindowFrame({
         width: isMax && currentOS === "ubuntu" ? "calc(100% - 56px)" : isMax ? "100%" : `${win.size.width}px`
       }}
       className={`absolute flex flex-col overflow-hidden transition-shadow select-none ${isMax
-          ? "rounded-none shadow-none"
-          : currentOS === "macos"
+        ? "rounded-none shadow-none"
+        : currentOS === "macos"
+          ? isLight
+            ? "rounded-xl shadow-2xl border border-slate-300/80 bg-white/95"
+            : "rounded-xl shadow-2xl border border-white/15 bg-slate-900/90"
+          : currentOS === "ubuntu"
             ? isLight
-              ? "rounded-xl shadow-2xl border border-slate-300/80 bg-white/95"
-              : "rounded-xl shadow-2xl border border-white/15 bg-slate-900/90"
-            : currentOS === "ubuntu"
-              ? isLight
-                ? "rounded-lg shadow-2xl border border-orange-300 bg-[#faf6f2]"
-                : "rounded-lg shadow-2xl border border-orange-500/30 bg-[#2c1d27]"
-              : isLight
-                ? "rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.18)] border border-slate-300/90 bg-white"
-                : "rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] border border-white/15 bg-slate-900"
+              ? "rounded-lg shadow-2xl border border-orange-300 bg-[#faf6f2]"
+              : "rounded-lg shadow-2xl border border-orange-500/30 bg-[#2c1d27]"
+            : isLight
+              ? "rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.18)] border border-slate-300/90 bg-white"
+              : "rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] border border-white/15 bg-slate-900"
         }`}
     >
       {/* Title Bar - Adapt to OS & Theme */}
@@ -206,8 +206,7 @@ export function WindowFrame({
         onPointerMove={handlePointerMoveDrag}
         onPointerUp={handlePointerUpDrag}
         onDoubleClick={() => onMaximize(win.id)}
-        className={`flex items-center justify-between px-3 py-2 cursor-move transition-colors backdrop-blur-xl ${
-          currentOS === "macos"
+        className={`flex items-center justify-between px-3 py-2 cursor-move transition-colors backdrop-blur-xl ${currentOS === "macos"
             ? isLight
               ? "bg-[#edeef1]/95 border-b border-slate-200 h-8"
               : "bg-slate-900/85 border-b border-white/10 h-8"
@@ -218,7 +217,7 @@ export function WindowFrame({
               : isLight
                 ? "bg-[#f3f4f6]/95 border-b border-slate-200 h-9"
                 : "bg-slate-900/90 border-b border-white/10 h-9"
-        }`}
+          }`}
       >
         {/* macOS Traffic Lights on Left */}
         {currentOS === "macos" ? (
@@ -255,18 +254,16 @@ export function WindowFrame({
                 <span className="opacity-0 group-hover:opacity-100">+</span>
               </button>
             </div>
-            <div className={`flex items-center gap-1.5 text-xs font-medium pl-2 ${
-              isLight ? "text-slate-700" : "text-slate-300"
-            }`}>
+            <div className={`flex items-center gap-1.5 text-xs font-medium pl-2 ${isLight ? "text-slate-700" : "text-slate-300"
+              }`}>
               {renderIcon(win.id)}
               <span className="truncate max-w-[200px]">{win.title}</span>
             </div>
           </div>
         ) : (
           /* Windows & Ubuntu: Icon and Title on Left */
-          <div className={`flex items-center gap-2 text-xs font-medium overflow-hidden ${
-            isLight ? "text-slate-800" : "text-slate-200"
-          }`}>
+          <div className={`flex items-center gap-2 text-xs font-medium overflow-hidden ${isLight ? "text-slate-800" : "text-slate-200"
+            }`}>
             {renderIcon(win.id)}
             <span className="truncate max-w-[220px]">{win.title}</span>
           </div>
@@ -280,11 +277,10 @@ export function WindowFrame({
                 e.stopPropagation();
                 onMinimize(win.id);
               }}
-              className={`flex h-9 w-11 items-center justify-center transition ${
-                isLight
+              className={`flex h-9 w-11 items-center justify-center transition ${isLight
                   ? "text-slate-600 hover:bg-slate-200 hover:text-slate-900"
                   : "text-slate-400 hover:bg-white/10 hover:text-white"
-              }`}
+                }`}
               title="Minimize"
             >
               <Minus className="h-3.5 w-3.5" />
@@ -294,11 +290,10 @@ export function WindowFrame({
                 e.stopPropagation();
                 onMaximize(win.id);
               }}
-              className={`flex h-9 w-11 items-center justify-center transition ${
-                isLight
+              className={`flex h-9 w-11 items-center justify-center transition ${isLight
                   ? "text-slate-600 hover:bg-slate-200 hover:text-slate-900"
                   : "text-slate-400 hover:bg-white/10 hover:text-white"
-              }`}
+                }`}
               title={isMax ? "Restore" : "Maximize"}
             >
               {isMax ? (
@@ -312,11 +307,10 @@ export function WindowFrame({
                 e.stopPropagation();
                 onClose(win.id);
               }}
-              className={`flex h-9 w-11 items-center justify-center transition ${
-                isLight
+              className={`flex h-9 w-11 items-center justify-center transition ${isLight
                   ? "text-slate-600 hover:bg-red-600 hover:text-white"
                   : "text-slate-400 hover:bg-red-600 hover:text-white"
-              }`}
+                }`}
               title="Close"
             >
               <X className="h-4 w-4" />
@@ -332,11 +326,10 @@ export function WindowFrame({
                 e.stopPropagation();
                 onMinimize(win.id);
               }}
-              className={`flex h-5 w-5 items-center justify-center rounded-full transition text-[10px] ${
-                isLight
+              className={`flex h-5 w-5 items-center justify-center rounded-full transition text-[10px] ${isLight
                   ? "bg-stone-200 text-stone-700 hover:bg-stone-300"
                   : "bg-white/10 text-slate-300 hover:bg-white/20"
-              }`}
+                }`}
               title="Minimize"
             >
               <Minus className="h-3 w-3" />
@@ -346,11 +339,10 @@ export function WindowFrame({
                 e.stopPropagation();
                 onMaximize(win.id);
               }}
-              className={`flex h-5 w-5 items-center justify-center rounded-full transition text-[10px] ${
-                isLight
+              className={`flex h-5 w-5 items-center justify-center rounded-full transition text-[10px] ${isLight
                   ? "bg-stone-200 text-stone-700 hover:bg-stone-300"
                   : "bg-white/10 text-slate-300 hover:bg-white/20"
-              }`}
+                }`}
               title="Maximize"
             >
               <Square className="h-2.5 w-2.5" />
@@ -370,9 +362,8 @@ export function WindowFrame({
       </div>
 
       {/* Window Body */}
-      <div className={`relative flex-1 overflow-hidden backdrop-blur-md ${
-        isLight ? "bg-slate-50 text-slate-900" : "bg-slate-950/95 text-slate-100"
-      }`}>
+      <div className={`relative flex-1 overflow-hidden backdrop-blur-md ${isLight ? "bg-slate-50 text-slate-900" : "bg-slate-950/95 text-slate-100"
+        }`}>
         {children}
       </div>
 
@@ -382,11 +373,10 @@ export function WindowFrame({
           onPointerDown={handlePointerDownResize}
           onPointerMove={handlePointerMoveResize}
           onPointerUp={handlePointerUpResize}
-          className={`absolute bottom-0 right-0 h-4 w-4 cursor-se-resize flex items-end justify-end p-0.5 transition ${
-            isLight
+          className={`absolute bottom-0 right-0 h-4 w-4 cursor-se-resize flex items-end justify-end p-0.5 transition ${isLight
               ? "text-slate-400 hover:text-cyan-600"
               : "text-slate-500 hover:text-cyan-400"
-          }`}
+            }`}
         >
           <svg className="h-2.5 w-2.5" viewBox="0 0 6 6" fill="currentColor">
             <circle cx="5" cy="5" r="0.8" />
