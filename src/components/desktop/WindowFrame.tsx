@@ -79,8 +79,10 @@ export function WindowFrame({
     const deltaY = e.clientY - dragStartRef.current.mouseY;
 
     // Boundary constraints
-    const newX = Math.max(0, Math.min(window.innerWidth - 100, dragStartRef.current.startX + deltaX));
-    const newY = Math.max(0, Math.min(window.innerHeight - 80, dragStartRef.current.startY + deltaY));
+    const minX = currentOS === "ubuntu" ? 64 : 0;
+    const minY = currentOS === "ubuntu" ? 32 : currentOS === "macos" ? 30 : 0;
+    const newX = Math.max(minX, Math.min(window.innerWidth - 100, dragStartRef.current.startX + deltaX));
+    const newY = Math.max(minY, Math.min(window.innerHeight - 80, dragStartRef.current.startY + deltaY));
 
     onMove(win.id, { x: newX, y: newY });
   };
@@ -159,6 +161,9 @@ export function WindowFrame({
     }
   };
 
+  const posX = currentOS === "ubuntu" ? Math.max(68, win.position.x) : win.position.x;
+  const posY = currentOS === "ubuntu" ? Math.max(34, win.position.y) : currentOS === "macos" ? Math.max(30, win.position.y) : win.position.y;
+
   return (
     <div
       onPointerDown={() => onFocus(win.id)}
@@ -166,15 +171,17 @@ export function WindowFrame({
         zIndex: win.zIndex,
         transform: isMax
           ? "none"
-          : `translate3d(${win.position.x}px, ${win.position.y}px, 0)`,
+          : `translate3d(${posX}px, ${posY}px, 0)`,
         height: isMax
           ? currentOS === "macos"
             ? "calc(100% - 30px)"
             : currentOS === "windows"
               ? "calc(100% - 48px)"
-              : "calc(100% - 32px)"
+              : currentOS === "ubuntu"
+                ? "calc(100% - 28px)"
+                : "calc(100% - 32px)"
           : `${win.size.height}px`,
-        top: isMax ? (currentOS === "macos" || currentOS === "ubuntu" ? "30px" : "0") : "0",
+        top: isMax ? (currentOS === "macos" ? "30px" : currentOS === "ubuntu" ? "28px" : "0") : "0",
         left: isMax ? (currentOS === "ubuntu" ? "56px" : "0") : "0",
         width: isMax && currentOS === "ubuntu" ? "calc(100% - 56px)" : isMax ? "100%" : `${win.size.width}px`
       }}

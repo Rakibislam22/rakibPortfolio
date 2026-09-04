@@ -98,7 +98,7 @@ export function UbuntuShell({
   return (
     <>
       {/* Ubuntu Top Bar */}
-      <header className={`fixed top-0 left-0 right-0 z-30 flex h-7 items-center justify-between px-3 text-xs select-none ${
+      <header className={`fixed top-0 left-0 right-0 z-40 flex h-7 items-center justify-between px-3 text-xs select-none ${
         isLight
           ? "bg-[#ede8e1]/95 border-b border-orange-300 text-stone-900 shadow-xs"
           : "bg-[#110e14]/95 border-b border-orange-950/40 text-slate-200"
@@ -147,7 +147,7 @@ export function UbuntuShell({
       </header>
 
       {/* Ubuntu Left Dock */}
-      <aside className={`fixed top-7 bottom-0 left-0 z-30 flex w-14 flex-col items-center justify-between py-3 select-none ${
+      <aside className={`fixed top-7 bottom-0 left-0 z-40 flex w-14 flex-col items-center justify-between py-3 select-none ${
         isLight
           ? "bg-[#e8e2d8]/95 border-r border-orange-200"
           : "bg-[#130f17]/95 border-r border-orange-950/40"

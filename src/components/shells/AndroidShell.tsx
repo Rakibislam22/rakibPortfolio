@@ -221,11 +221,14 @@ export function AndroidShell({
               <Sun className="h-4 w-4" /> 28°C
             </span>
           </div>
-          <div className={`rounded-2xl p-3.5 backdrop-blur-md border ${
-            isLight
-              ? "border-teal-300/80 bg-white/70 shadow-sm"
-              : "border-teal-500/20 bg-teal-950/40"
-          }`}>
+          <div
+            onClick={onOpenSettings}
+            className={`rounded-2xl p-3.5 backdrop-blur-md border cursor-pointer transition active:scale-[0.98] ${
+              isLight
+                ? "border-teal-300/80 bg-white/70 shadow-sm hover:border-teal-400"
+                : "border-teal-500/20 bg-teal-950/40 hover:border-teal-500/40"
+            }`}
+          >
             <p className={`text-xs font-semibold ${isLight ? "text-teal-900" : "text-teal-300"}`}>
               {portfolioData.name} • Developer Hub
             </p>
@@ -294,36 +297,12 @@ export function AndroidShell({
         </div>
       </main>
 
-      {/* Android Bottom Navigation Bar (3-Button Pill) */}
-      <footer className={`fixed bottom-0 left-0 right-0 z-30 flex h-10 items-center justify-around backdrop-blur-md ${
-        isLight ? "bg-white/70 border-t border-slate-200" : "bg-black/40"
-      }`}>
-        <button
-          onClick={() => {
-            if (activeApp) onCloseApp(activeApp.id);
-          }}
-          className={`px-4 py-1 transition ${isLight ? "text-slate-600 hover:text-slate-950" : "text-slate-400 hover:text-white"}`}
-          title="Back"
-        >
-          ◁
-        </button>
-        <button
-          onClick={() => {
-            if (activeApp) onCloseApp(activeApp.id);
-          }}
-          className={`px-4 py-1 transition ${isLight ? "text-slate-600 hover:text-slate-950" : "text-slate-400 hover:text-white"}`}
-          title="Home"
-        >
-          ◯
-        </button>
-        <button
-          onClick={onOpenSettings}
-          className={`px-4 py-1 transition ${isLight ? "text-slate-600 hover:text-slate-950" : "text-slate-400 hover:text-white"}`}
-          title="Overview"
-        >
-          ▢
-        </button>
-      </footer>
+      {/* Android Modern Gesture Navigation Bar */}
+      <div className="fixed bottom-2 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
+        <div className={`h-1 w-28 rounded-full ${
+          isLight ? "bg-slate-400/60" : "bg-white/40"
+        }`} />
+      </div>
 
       {/* Android Full-Screen App Screen */}
       {activeApp && (

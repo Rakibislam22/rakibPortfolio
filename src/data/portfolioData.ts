@@ -330,101 +330,47 @@ export const portfolioData: PortfolioData = {
       name: "Windows 11 Bloom Dark",
       thumbnail: "bg-gradient-to-tr from-sky-950 via-slate-900 to-blue-900",
       bgClass: "bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-900 via-slate-950 to-black",
-      osTarget: "windows",
-      mode: "dark"
-    },
-    {
-      id: "win-bloom-light",
-      name: "Windows 11 Bloom Light",
-      thumbnail: "bg-gradient-to-tr from-sky-200 via-blue-100 to-indigo-200",
-      bgClass: "bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-200 via-slate-100 to-blue-100 text-slate-900",
-      osTarget: "windows",
-      mode: "light"
+      osTarget: "windows"
     },
     {
       id: "mac-sonoma",
-      name: "macOS Sequoia Dark",
+      name: "macOS Sequoia Glow",
       thumbnail: "bg-gradient-to-tr from-orange-900 via-purple-950 to-indigo-950",
       bgClass: "bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-purple-950 via-slate-950 to-orange-950/40",
-      osTarget: "macos",
-      mode: "dark"
-    },
-    {
-      id: "mac-sequoia-light",
-      name: "macOS Sequoia Light",
-      thumbnail: "bg-gradient-to-tr from-orange-200 via-rose-100 to-amber-200",
-      bgClass: "bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-orange-200 via-rose-50 to-amber-100 text-slate-900",
-      osTarget: "macos",
-      mode: "light"
+      osTarget: "macos"
     },
     {
       id: "ubuntu-noble",
-      name: "Ubuntu 24.04 Yaru Dark",
+      name: "Ubuntu 24.04 Yaru Aubergine",
       thumbnail: "bg-gradient-to-tr from-orange-950 via-purple-950 to-stone-950",
       bgClass: "bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-amber-950/60 via-purple-950 to-stone-950",
-      osTarget: "ubuntu",
-      mode: "dark"
-    },
-    {
-      id: "ubuntu-light",
-      name: "Ubuntu Yaru Light",
-      thumbnail: "bg-gradient-to-tr from-orange-200 via-amber-100 to-stone-200",
-      bgClass: "bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-orange-100 via-amber-50 to-stone-100 text-slate-900",
-      osTarget: "ubuntu",
-      mode: "light"
+      osTarget: "ubuntu"
     },
     {
       id: "ios-ribbon",
-      name: "Apple iOS 18 Nebula Dark",
+      name: "Apple iOS 18 Nebula",
       thumbnail: "bg-gradient-to-tr from-blue-900 via-indigo-950 to-purple-950",
       bgClass: "bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-950 via-indigo-950 to-[#04060d]",
-      osTarget: "ios",
-      mode: "dark"
-    },
-    {
-      id: "ios-light",
-      name: "Apple iOS 18 Daylight",
-      thumbnail: "bg-gradient-to-tr from-blue-200 via-indigo-100 to-sky-200",
-      bgClass: "bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-200 via-indigo-50 to-sky-100 text-slate-900",
-      osTarget: "ios",
-      mode: "light"
+      osTarget: "ios"
     },
     {
       id: "android-dunes",
-      name: "Android 15 Material Dark",
+      name: "Android 15 Material Dunes",
       thumbnail: "bg-gradient-to-tr from-teal-900 via-slate-950 to-emerald-950",
       bgClass: "bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-teal-950/80 via-slate-950 to-[#04090f]",
-      osTarget: "android",
-      mode: "dark"
-    },
-    {
-      id: "android-light",
-      name: "Android 15 Material Light",
-      thumbnail: "bg-gradient-to-tr from-teal-200 via-emerald-100 to-slate-200",
-      bgClass: "bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-teal-100 via-emerald-50 to-slate-100 text-slate-900",
-      osTarget: "android",
-      mode: "light"
+      osTarget: "android"
     },
     {
       id: "cyber-matrix",
-      name: "Cyberpunk Dark Grid",
+      name: "Cyberpunk Grid",
       thumbnail: "bg-gradient-to-tr from-cyan-950 via-slate-950 to-emerald-950",
-      bgClass: "bg-[#060c18]",
-      mode: "dark"
-    },
-    {
-      id: "clean-paper-light",
-      name: "Minimalist Studio Light",
-      thumbnail: "bg-gradient-to-tr from-slate-200 via-slate-100 to-white",
-      bgClass: "bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-200 via-slate-50 to-white text-slate-900",
-      mode: "light"
+      bgClass: "bg-[#060c18]"
     },
     {
       id: "deep-space",
-      name: "Deep Space Aurora Dark",
+      name: "Deep Space Aurora",
       thumbnail: "bg-gradient-to-tr from-indigo-950 via-slate-950 to-teal-950",
-      bgClass: "bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900 via-black to-[#050b14]",
-      mode: "dark"
+      bgClass: "bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900 via-black to-[#050b14]"
     }
   ]
 };
