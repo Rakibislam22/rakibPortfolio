@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rakib Islam | OS Desktop Portfolio",
-  description: "An interactive OS Desktop Portfolio for Rakib Islam - Full Stack & UI/UX Engineer with Windows 11, macOS, and Ubuntu themes.",
+  title: "Md Rakib Ali | OS Desktop Portfolio",
+  description: "An interactive OS Desktop Portfolio for Md Rakib Ali - Full Stack & UI/UX Engineer with Windows 11, macOS, and Ubuntu themes.",
 };
 
 export default function RootLayout({
