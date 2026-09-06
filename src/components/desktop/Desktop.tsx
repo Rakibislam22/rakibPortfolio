@@ -130,11 +130,15 @@ export function Desktop() {
       {!isMobileOS && (
         <main
           className={`relative z-10 flex h-full flex-col flex-wrap items-start content-start gap-3 p-4 sm:p-6 overflow-hidden ${
+          className={`relative z-10 flex h-full flex-col flex-wrap items-start content-start gap-3 overflow-hidden ${
             currentOS === "macos"
               ? "pt-12 pb-24"
+              ? "pt-12 pb-24 px-4 sm:px-6"
               : currentOS === "ubuntu"
                 ? "pt-10 pl-20 pb-6"
                 : "pt-6 pb-16"
+                ? "pt-10 pb-6 pl-20 pr-4 sm:pl-24 sm:pr-6"
+                : "pt-6 pb-16 px-4 sm:px-6"
           }`}
         >
           {defaultDesktopItems.map((item) => (

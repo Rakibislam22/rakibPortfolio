@@ -207,16 +207,16 @@ export function WindowFrame({
         onPointerUp={handlePointerUpDrag}
         onDoubleClick={() => onMaximize(win.id)}
         className={`flex items-center justify-between px-3 py-2 cursor-move transition-colors backdrop-blur-xl ${currentOS === "macos"
+          ? isLight
+            ? "bg-[#edeef1]/95 border-b border-slate-200 h-8"
+            : "bg-slate-900/85 border-b border-white/10 h-8"
+          : currentOS === "ubuntu"
             ? isLight
-              ? "bg-[#edeef1]/95 border-b border-slate-200 h-8"
-              : "bg-slate-900/85 border-b border-white/10 h-8"
-            : currentOS === "ubuntu"
-              ? isLight
-                ? "bg-[#f5ece6]/95 border-b border-orange-200 h-8"
-                : "bg-[#2c1d27]/90 border-b border-orange-950/40 h-8"
-              : isLight
-                ? "bg-[#f3f4f6]/95 border-b border-slate-200 h-9"
-                : "bg-slate-900/90 border-b border-white/10 h-9"
+              ? "bg-[#f5ece6]/95 border-b border-orange-200 h-8"
+              : "bg-[#2c1d27]/90 border-b border-orange-950/40 h-8"
+            : isLight
+              ? "bg-[#f3f4f6]/95 border-b border-slate-200 h-9"
+              : "bg-slate-900/90 border-b border-white/10 h-9"
           }`}
       >
         {/* macOS Traffic Lights on Left */}
@@ -278,8 +278,8 @@ export function WindowFrame({
                 onMinimize(win.id);
               }}
               className={`flex h-9 w-11 items-center justify-center transition ${isLight
-                  ? "text-slate-600 hover:bg-slate-200 hover:text-slate-900"
-                  : "text-slate-400 hover:bg-white/10 hover:text-white"
+                ? "text-slate-600 hover:bg-slate-200 hover:text-slate-900"
+                : "text-slate-400 hover:bg-white/10 hover:text-white"
                 }`}
               title="Minimize"
             >
@@ -291,8 +291,8 @@ export function WindowFrame({
                 onMaximize(win.id);
               }}
               className={`flex h-9 w-11 items-center justify-center transition ${isLight
-                  ? "text-slate-600 hover:bg-slate-200 hover:text-slate-900"
-                  : "text-slate-400 hover:bg-white/10 hover:text-white"
+                ? "text-slate-600 hover:bg-slate-200 hover:text-slate-900"
+                : "text-slate-400 hover:bg-white/10 hover:text-white"
                 }`}
               title={isMax ? "Restore" : "Maximize"}
             >
@@ -308,8 +308,8 @@ export function WindowFrame({
                 onClose(win.id);
               }}
               className={`flex h-9 w-11 items-center justify-center transition ${isLight
-                  ? "text-slate-600 hover:bg-red-600 hover:text-white"
-                  : "text-slate-400 hover:bg-red-600 hover:text-white"
+                ? "text-slate-600 hover:bg-red-600 hover:text-white"
+                : "text-slate-400 hover:bg-red-600 hover:text-white"
                 }`}
               title="Close"
             >
@@ -327,8 +327,8 @@ export function WindowFrame({
                 onMinimize(win.id);
               }}
               className={`flex h-5 w-5 items-center justify-center rounded-full transition text-[10px] ${isLight
-                  ? "bg-stone-200 text-stone-700 hover:bg-stone-300"
-                  : "bg-white/10 text-slate-300 hover:bg-white/20"
+                ? "bg-stone-200 text-stone-700 hover:bg-stone-300"
+                : "bg-white/10 text-slate-300 hover:bg-white/20"
                 }`}
               title="Minimize"
             >
@@ -340,8 +340,8 @@ export function WindowFrame({
                 onMaximize(win.id);
               }}
               className={`flex h-5 w-5 items-center justify-center rounded-full transition text-[10px] ${isLight
-                  ? "bg-stone-200 text-stone-700 hover:bg-stone-300"
-                  : "bg-white/10 text-slate-300 hover:bg-white/20"
+                ? "bg-stone-200 text-stone-700 hover:bg-stone-300"
+                : "bg-white/10 text-slate-300 hover:bg-white/20"
                 }`}
               title="Maximize"
             >
@@ -374,8 +374,8 @@ export function WindowFrame({
           onPointerMove={handlePointerMoveResize}
           onPointerUp={handlePointerUpResize}
           className={`absolute bottom-0 right-0 h-4 w-4 cursor-se-resize flex items-end justify-end p-0.5 transition ${isLight
-              ? "text-slate-400 hover:text-cyan-600"
-              : "text-slate-500 hover:text-cyan-400"
+            ? "text-slate-400 hover:text-cyan-600"
+            : "text-slate-500 hover:text-cyan-400"
             }`}
         >
           <svg className="h-2.5 w-2.5" viewBox="0 0 6 6" fill="currentColor">

@@ -99,8 +99,8 @@ export function UbuntuShell({
     <>
       {/* Ubuntu Top Bar */}
       <header className={`fixed top-0 left-0 right-0 z-40 flex h-7 items-center justify-between px-3 text-xs select-none ${isLight
-          ? "bg-[#ede8e1]/95 border-b border-orange-300 text-stone-900 shadow-xs"
-          : "bg-[#110e14]/95 border-b border-orange-950/40 text-slate-200"
+        ? "bg-[#ede8e1]/95 border-b border-orange-300 text-stone-900 shadow-xs"
+        : "bg-[#110e14]/95 border-b border-orange-950/40 text-slate-200"
         }`}>
         {/* Left: Activities */}
         <button
@@ -133,8 +133,8 @@ export function UbuntuShell({
           <button
             onClick={onOpenSettings}
             className={`flex items-center gap-2 rounded-full px-2.5 py-0.5 text-xs transition ${isLight
-                ? "bg-stone-200/80 text-stone-800 hover:bg-stone-300"
-                : "bg-white/5 text-slate-300 hover:bg-white/10"
+              ? "bg-stone-200/80 text-stone-800 hover:bg-stone-300"
+              : "bg-white/5 text-slate-300 hover:bg-white/10"
               }`}
           >
             <Wifi className="h-3 w-3" />
@@ -146,8 +146,8 @@ export function UbuntuShell({
 
       {/* Ubuntu Left Dock */}
       <aside className={`fixed top-7 bottom-0 left-0 z-40 flex w-14 flex-col items-center justify-between py-3 select-none ${isLight
-          ? "bg-[#e8e2d8]/95 border-r border-orange-200"
-          : "bg-[#130f17]/95 border-r border-orange-950/40"
+        ? "bg-[#e8e2d8]/95 border-r border-orange-200"
+        : "bg-[#130f17]/95 border-r border-orange-950/40"
         }`}>
         <div className="flex flex-col items-center gap-2 w-full">
           {dockApps.map((app) => {
@@ -166,12 +166,12 @@ export function UbuntuShell({
                   }
                 }}
                 className={`relative flex h-10 w-10 items-center justify-center rounded-xl transition ${isActive
-                    ? isLight
-                      ? "bg-orange-200 shadow-xs"
-                      : "bg-white/15"
-                    : isLight
-                      ? "hover:bg-stone-200/70"
-                      : "hover:bg-white/10"
+                  ? isLight
+                    ? "bg-orange-200 shadow-xs"
+                    : "bg-white/15"
+                  : isLight
+                    ? "hover:bg-stone-200/70"
+                    : "hover:bg-white/10"
                   }`}
                 title={app.name}
               >
