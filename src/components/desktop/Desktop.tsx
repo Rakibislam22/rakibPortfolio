@@ -115,22 +115,22 @@ export function Desktop() {
     >
       {/* Background Noise & Lighting */}
       <div className={`absolute inset-0 pointer-events-none ${isLight
-          ? "bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.15),_transparent_60%)]"
-          : "bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.08),_transparent_45%)]"
+        ? "bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.15),_transparent_60%)]"
+        : "bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.08),_transparent_45%)]"
         }`} />
       <div className={`absolute inset-0 pointer-events-none [background-size:16px_16px] ${isLight
-          ? "opacity-[0.02] bg-[radial-gradient(#000_1px,transparent_1px)]"
-          : "opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)]"
+        ? "opacity-[0.02] bg-[radial-gradient(#000_1px,transparent_1px)]"
+        : "opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)]"
         }`} />
 
       {/* Desktop Icons (for desktop OS modes) */}
       {!isMobileOS && (
         <main
           className={`relative z-10 flex h-full flex-col flex-wrap items-start content-start gap-3 overflow-hidden ${currentOS === "macos"
-              ? "pt-12 pb-24 px-4 sm:px-6"
-              : currentOS === "ubuntu"
-                ? "pt-10 pb-6 pl-20 pr-4 sm:pl-24 sm:pr-6"
-                : "pt-6 pb-16 px-4 sm:px-6"
+            ? "pt-12 pb-24 px-4 sm:px-6"
+            : currentOS === "ubuntu"
+              ? "pt-10 pb-6 pl-20 pr-4 sm:pl-24 sm:pr-6"
+              : "pt-6 pb-16 px-4 sm:px-6"
             }`}
         >
           {defaultDesktopItems.map((item) => (

@@ -156,8 +156,8 @@ export function IOSShell({
             }
           }}
           className={`flex items-center justify-between bg-black text-white px-3 py-1 cursor-pointer transition-all duration-300 shadow-xl border border-white/10 ${dynamicIslandExpanded
-              ? "h-10 w-48 rounded-full"
-              : "h-7 w-28 rounded-full"
+            ? "h-10 w-48 rounded-full"
+            : "h-7 w-28 rounded-full"
             }`}
         >
           <div className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -229,8 +229,8 @@ export function IOSShell({
           <button
             onClick={() => onOpenApp("terminal")}
             className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs backdrop-blur-xl shadow-lg active:scale-95 transition ${isLight
-                ? "bg-white/90 border border-slate-300 text-slate-950 font-semibold"
-                : "bg-black/40 border border-white/20 text-white/90 font-medium"
+              ? "bg-white/90 border border-slate-300 text-slate-950 font-semibold"
+              : "bg-black/40 border border-white/20 text-white/90 font-medium"
               }`}
           >
             <Search className="h-3 w-3" />
@@ -242,8 +242,8 @@ export function IOSShell({
       {/* iOS Frosted Bottom Dock */}
       <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 w-[92%] max-w-sm">
         <div className={`flex items-center justify-around rounded-[2rem] p-3 backdrop-blur-3xl shadow-2xl ${isLight
-            ? "border border-white/80 bg-white/40 shadow-slate-900/10"
-            : "border border-white/20 bg-white/15 shadow-black/40"
+          ? "border border-white/80 bg-white/40 shadow-slate-900/10"
+          : "border border-white/20 bg-white/15 shadow-black/40"
           }`}>
           {dockApps.map((app) => (
             <button

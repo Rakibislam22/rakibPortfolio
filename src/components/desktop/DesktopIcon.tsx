@@ -114,8 +114,8 @@ export function DesktopIcon({
     <button
       onClick={handleClick}
       className={`group relative flex flex-col items-center justify-center rounded-xl p-2.5 transition select-none w-24 focus:outline-none ${isSelected
-          ? "bg-cyan-500/20 border border-cyan-400/50 shadow-md backdrop-blur-sm"
-          : "hover:bg-white/10 hover:backdrop-blur-sm border border-transparent"
+        ? "bg-cyan-500/20 border border-cyan-400/50 shadow-md backdrop-blur-sm"
+        : "hover:bg-white/10 hover:backdrop-blur-sm border border-transparent"
         }`}
     >
       <div className="relative">
@@ -129,8 +129,8 @@ export function DesktopIcon({
 
       <span
         className={`mt-1.5 text-center text-xs font-semibold line-clamp-2 leading-tight ${isLight
-            ? "text-slate-950 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]"
-            : "text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]"
+          ? "text-slate-950 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]"
+          : "text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]"
           }`}
       >
         {item.title}

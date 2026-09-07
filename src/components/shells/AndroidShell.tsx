@@ -64,8 +64,8 @@ export function AndroidShell({
       case "about":
         return (
           <div className={`flex h-14 w-14 items-center justify-center rounded-full border-2 shadow-md transition ${isLight
-              ? "bg-teal-100 border-teal-500 text-teal-950"
-              : "bg-teal-900/60 border-teal-400/40 text-teal-300"
+            ? "bg-teal-100 border-teal-500 text-teal-950"
+            : "bg-teal-900/60 border-teal-400/40 text-teal-300"
             }`}>
             <FileText className="h-6 w-6" />
           </div>
@@ -73,8 +73,8 @@ export function AndroidShell({
       case "projects":
         return (
           <div className={`flex h-14 w-14 items-center justify-center rounded-full border-2 shadow-md transition ${isLight
-              ? "bg-amber-100 border-amber-500 text-amber-950"
-              : "bg-amber-900/60 border-amber-400/40 text-amber-300"
+            ? "bg-amber-100 border-amber-500 text-amber-950"
+            : "bg-amber-900/60 border-amber-400/40 text-amber-300"
             }`}>
             <FolderGit2 className="h-6 w-6" />
           </div>
@@ -82,8 +82,8 @@ export function AndroidShell({
       case "skills":
         return (
           <div className={`flex h-14 w-14 items-center justify-center rounded-full border-2 shadow-md transition ${isLight
-              ? "bg-emerald-100 border-emerald-500 text-emerald-950"
-              : "bg-emerald-900/60 border-emerald-400/40 text-emerald-300"
+            ? "bg-emerald-100 border-emerald-500 text-emerald-950"
+            : "bg-emerald-900/60 border-emerald-400/40 text-emerald-300"
             }`}>
             <Cpu className="h-6 w-6" />
           </div>
@@ -91,8 +91,8 @@ export function AndroidShell({
       case "resume":
         return (
           <div className={`flex h-14 w-14 items-center justify-center rounded-full border-2 shadow-md transition ${isLight
-              ? "bg-purple-100 border-purple-500 text-purple-900"
-              : "bg-purple-900/60 border-purple-400/40 text-purple-300"
+            ? "bg-purple-100 border-purple-500 text-purple-900"
+            : "bg-purple-900/60 border-purple-400/40 text-purple-300"
             }`}>
             <GraduationCap className="h-6 w-6" />
           </div>
@@ -100,8 +100,8 @@ export function AndroidShell({
       case "contact":
         return (
           <div className={`flex h-14 w-14 items-center justify-center rounded-full border-2 shadow-md transition ${isLight
-              ? "bg-sky-100 border-sky-500 text-sky-950"
-              : "bg-sky-900/60 border-sky-400/40 text-sky-300"
+            ? "bg-sky-100 border-sky-500 text-sky-950"
+            : "bg-sky-900/60 border-sky-400/40 text-sky-300"
             }`}>
             <Mail className="h-6 w-6" />
           </div>
@@ -109,8 +109,8 @@ export function AndroidShell({
       case "terminal":
         return (
           <div className={`flex h-14 w-14 items-center justify-center rounded-full border-2 font-mono text-lg font-bold shadow-md transition ${isLight
-              ? "bg-slate-200 border-slate-500 text-slate-950"
-              : "bg-slate-900 border-slate-700 text-emerald-400"
+            ? "bg-slate-200 border-slate-500 text-slate-950"
+            : "bg-slate-900 border-slate-700 text-emerald-400"
             }`}>
             &gt;_
           </div>
@@ -118,8 +118,8 @@ export function AndroidShell({
       case "youtube":
         return (
           <div className={`flex h-14 w-14 items-center justify-center rounded-full border-2 shadow-md transition ${isLight
-              ? "bg-rose-100 border-rose-500 text-rose-900"
-              : "bg-rose-950/80 border-rose-500/50 text-rose-500"
+            ? "bg-rose-100 border-rose-500 text-rose-900"
+            : "bg-rose-950/80 border-rose-500/50 text-rose-500"
             }`}>
             <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
               <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
@@ -129,8 +129,8 @@ export function AndroidShell({
       case "settings":
         return (
           <div className={`flex h-14 w-14 items-center justify-center rounded-full border-2 shadow-md transition ${isLight
-              ? "bg-stone-200 border-stone-500 text-stone-900"
-              : "bg-stone-900/80 border-stone-500/40 text-stone-300"
+            ? "bg-stone-200 border-stone-500 text-stone-900"
+            : "bg-stone-900/80 border-stone-500/40 text-stone-300"
             }`}>
             <Settings className="h-6 w-6" />
           </div>
@@ -138,8 +138,8 @@ export function AndroidShell({
       case "trash":
         return (
           <div className={`flex h-14 w-14 items-center justify-center rounded-full border-2 shadow-md transition ${isLight
-              ? "bg-rose-100 border-rose-500 text-rose-900"
-              : "bg-rose-900/60 border-rose-400/40 text-rose-300"
+            ? "bg-rose-100 border-rose-500 text-rose-900"
+            : "bg-rose-900/60 border-rose-400/40 text-rose-300"
             }`}>
             <Trash2 className="h-6 w-6" />
           </div>
@@ -208,8 +208,8 @@ export function AndroidShell({
           <div
             onClick={onOpenSettings}
             className={`rounded-2xl p-3.5 backdrop-blur-md border cursor-pointer transition active:scale-[0.98] ${isLight
-                ? "border-teal-400 bg-white/90 shadow-md hover:border-teal-500"
-                : "border-teal-500/20 bg-teal-950/40 hover:border-teal-500/40"
+              ? "border-teal-400 bg-white/90 shadow-md hover:border-teal-500"
+              : "border-teal-500/20 bg-teal-950/40 hover:border-teal-500/40"
               }`}
           >
             <p className={`text-xs font-bold ${isLight ? "text-teal-950" : "text-teal-300"}`}>
@@ -243,8 +243,8 @@ export function AndroidShell({
           <div
             onClick={() => onOpenApp("terminal")}
             className={`flex items-center justify-between rounded-full px-4 py-2.5 backdrop-blur-xl shadow-lg cursor-pointer transition border ${isLight
-                ? "border-slate-300 bg-white/95 text-slate-900 hover:border-slate-400"
-                : "border-white/15 bg-slate-900/80 hover:border-white/30"
+              ? "border-slate-300 bg-white/95 text-slate-900 hover:border-slate-400"
+              : "border-white/15 bg-slate-900/80 hover:border-white/30"
               }`}
           >
             <div className="flex items-center gap-2.5">
