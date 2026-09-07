@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useOS } from "@/context/OSContext";
 import { AppId, DesktopItem } from "@/types/os";
 import {
   FolderGit2,
@@ -25,6 +26,8 @@ export function DesktopIcon({
   onSelect,
   onOpen
 }: DesktopIconProps) {
+  const { themeMode } = useOS();
+  const isLight = themeMode === "light";
   const [clickCount, setClickCount] = useState(0);
 
   const handleClick = (e: React.MouseEvent) => {
@@ -38,11 +41,11 @@ export function DesktopIcon({
     }
 
     setClickCount((prev) => prev + 1);
-    setTimeout(() => setClickCount(0), 350);
-
-    if (clickCount >= 1) {
+    if (clickCount === 1) {
       onOpen(item.id);
       setClickCount(0);
+    } else {
+      setTimeout(() => setClickCount(0), 300);
     }
   };
 
@@ -74,14 +77,8 @@ export function DesktopIcon({
         );
       case "terminal":
         return (
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-900 border border-slate-700 text-emerald-400 shadow-lg group-hover:scale-105 transition font-mono font-bold">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-900 border border-emerald-500/40 text-emerald-400 font-mono text-base font-bold shadow-lg group-hover:scale-105 transition">
             &gt;_
-          </div>
-        );
-      case "contact":
-        return (
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-950/80 border border-sky-500/30 text-sky-400 shadow-lg group-hover:scale-105 transition">
-            <Mail className="h-6 w-6" />
           </div>
         );
       case "youtube":
@@ -92,9 +89,15 @@ export function DesktopIcon({
             </svg>
           </div>
         );
+      case "contact":
+        return (
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-950/80 border border-sky-500/30 text-sky-400 shadow-lg group-hover:scale-105 transition">
+            <Mail className="h-6 w-6" />
+          </div>
+        );
       case "settings":
         return (
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-900 border border-white/20 text-slate-200 shadow-lg group-hover:scale-105 transition">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-stone-900 border border-stone-600/40 text-slate-300 shadow-lg group-hover:scale-105 transition">
             <Settings className="h-6 w-6" />
           </div>
         );
@@ -110,10 +113,9 @@ export function DesktopIcon({
   return (
     <button
       onClick={handleClick}
-      onDoubleClick={() => onOpen(item.id)}
       className={`group relative flex flex-col items-center justify-center rounded-xl p-2.5 transition select-none w-24 focus:outline-none ${isSelected
-        ? "bg-cyan-500/20 border border-cyan-400/50 shadow-md backdrop-blur-sm"
-        : "hover:bg-white/10 hover:backdrop-blur-xs border border-transparent"
+          ? "bg-cyan-500/20 border border-cyan-400/50 shadow-md backdrop-blur-sm"
+          : "hover:bg-white/10 hover:backdrop-blur-sm border border-transparent"
         }`}
     >
       <div className="relative">
@@ -125,7 +127,12 @@ export function DesktopIcon({
         )}
       </div>
 
-      <span className="mt-1.5 text-center text-xs font-medium text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] line-clamp-2 leading-tight">
+      <span
+        className={`mt-1.5 text-center text-xs font-semibold line-clamp-2 leading-tight ${isLight
+            ? "text-slate-950 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]"
+            : "text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]"
+          }`}
+      >
         {item.title}
       </span>
     </button>

@@ -6,7 +6,6 @@ import { portfolioData } from "@/data/portfolioData";
 import {
   Wifi,
   Battery,
-  Search,
   FolderGit2,
   Cpu,
   GraduationCap,
@@ -14,29 +13,25 @@ import {
   Mail,
   Settings,
   Trash2,
-  ChevronLeft,
+  Search,
   Sun,
   Moon
 } from "lucide-react";
 
 interface IOSShellProps {
-  windows: Record<AppId, WindowInstance>;
-  activeWindowId: AppId | null;
+  windows?: Record<AppId, WindowInstance>;
+  activeWindowId?: AppId | null;
   themeMode?: ThemeMode;
   onToggleTheme?: () => void;
   onOpenApp: (id: AppId) => void;
-  onCloseApp: (id: string) => void;
+  onCloseApp?: (id: string) => void;
   onOpenSettings: () => void;
-  children?: React.ReactNode;
 }
 
 export function IOSShell({
-  windows,
-  activeWindowId,
   themeMode = "dark",
   onToggleTheme,
   onOpenApp,
-  onCloseApp,
   onOpenSettings
 }: IOSShellProps) {
   const [currentTime, setCurrentTime] = useState<string>("9:41");
@@ -143,16 +138,13 @@ export function IOSShell({
     { id: "contact", name: "Mail" }
   ];
 
-  const activeApp = activeWindowId && windows[activeWindowId]?.isOpen ? windows[activeWindowId] : null;
-
   return (
     <div className="relative h-full w-full flex flex-col justify-between overflow-hidden select-none">
       {/* iOS Top Status Bar */}
-      <header className={`fixed top-0 left-0 right-0 z-40 flex h-11 items-center justify-between px-6 pt-1 text-xs font-semibold backdrop-blur-xs ${
-        isLight ? "text-slate-900" : "text-white"
-      }`}>
+      <header className={`fixed top-0 left-0 right-0 z-40 flex h-11 items-center justify-between px-6 pt-1 text-xs font-semibold backdrop-blur-xs ${isLight ? "text-slate-950" : "text-white"
+        }`}>
         {/* Left: Time */}
-        <span className="font-semibold tracking-tight text-[13px]">{currentTime}</span>
+        <span className="font-bold tracking-tight text-[13px]">{currentTime}</span>
 
         {/* Center: Dynamic Island */}
         <div
@@ -163,14 +155,13 @@ export function IOSShell({
               setDynamicIslandExpanded(true);
             }
           }}
-          className={`flex items-center justify-between bg-black text-white px-3 py-1 cursor-pointer transition-all duration-300 shadow-xl border border-white/10 ${
-            dynamicIslandExpanded
+          className={`flex items-center justify-between bg-black text-white px-3 py-1 cursor-pointer transition-all duration-300 shadow-xl border border-white/10 ${dynamicIslandExpanded
               ? "h-10 w-48 rounded-full"
               : "h-7 w-28 rounded-full"
-          }`}
+            }`}
         >
           <div className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-[10px] text-slate-300 font-medium">
+          <span className="text-[10px] text-white font-semibold">
             {dynamicIslandExpanded ? "Tap for Settings ⚙️" : "RakibOS"}
           </span>
           <div className="h-2 w-2 rounded-full bg-sky-400/80" />
@@ -184,10 +175,10 @@ export function IOSShell({
               className="p-1 rounded-full active:opacity-60"
               title="Toggle Theme"
             >
-              {isLight ? <Moon className="h-3.5 w-3.5 text-indigo-600" /> : <Sun className="h-3.5 w-3.5 text-amber-300" />}
+              {isLight ? <Moon className="h-3.5 w-3.5 text-indigo-700 font-bold" /> : <Sun className="h-3.5 w-3.5 text-amber-300" />}
             </button>
           )}
-          <span className="text-[10px] font-bold">5G</span>
+          <span className="text-[10px] font-black">5G</span>
           <Wifi className="h-3.5 w-3.5" />
           <Battery className="h-4 w-4" />
         </div>
@@ -197,17 +188,15 @@ export function IOSShell({
       <main className="flex-1 flex flex-col items-center justify-between pt-16 pb-28 px-4 max-w-md mx-auto w-full">
         {/* Date & Greeting Widget */}
         <div className="w-full text-center my-2 space-y-1">
-          <p className={`text-xs font-semibold uppercase tracking-widest ${
-            isLight ? "text-cyan-700" : "text-sky-200/80 drop-shadow"
-          }`}>
+          <p className={`text-xs font-bold uppercase tracking-widest ${isLight ? "text-cyan-900" : "text-sky-200/90 drop-shadow"
+            }`}>
             {currentDate}
           </p>
-          <h2 className={`text-2xl font-bold tracking-tight ${
-            isLight ? "text-slate-900" : "text-white drop-shadow-md"
-          }`}>
+          <h2 className={`text-2xl font-black tracking-tight ${isLight ? "text-slate-950" : "text-white drop-shadow-md"
+            }`}>
             {portfolioData.name}
           </h2>
-          <p className={`text-xs ${isLight ? "text-slate-600" : "text-slate-300 drop-shadow"}`}>
+          <p className={`text-xs font-semibold ${isLight ? "text-slate-800" : "text-slate-200 drop-shadow"}`}>
             {portfolioData.title}
           </p>
         </div>
@@ -221,9 +210,8 @@ export function IOSShell({
               className="flex flex-col items-center gap-1.5 active:scale-90 transition-transform duration-150 focus:outline-none"
             >
               {getIOSIcon(app.id)}
-              <span className={`text-[11px] font-medium ${
-                isLight ? "text-slate-800" : "text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
-              }`}>
+              <span className={`text-[11px] font-bold text-center leading-tight ${isLight ? "text-slate-950 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]" : "text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
+                }`}>
                 {app.name}
               </span>
             </button>
@@ -233,32 +221,30 @@ export function IOSShell({
         {/* Search Pill Badge & Page Dots */}
         <div className="flex flex-col items-center gap-3">
           <div className="flex items-center gap-1.5">
-            <span className={`h-1.5 w-1.5 rounded-full shadow-sm ${isLight ? "bg-slate-800" : "bg-white"}`} />
-            <span className={`h-1.5 w-1.5 rounded-full ${isLight ? "bg-slate-400" : "bg-white/40"}`} />
-            <span className={`h-1.5 w-1.5 rounded-full ${isLight ? "bg-slate-400" : "bg-white/40"}`} />
+            <span className={`h-1.5 w-1.5 rounded-full shadow-sm ${isLight ? "bg-slate-900" : "bg-white"}`} />
+            <span className={`h-1.5 w-1.5 rounded-full ${isLight ? "bg-slate-500" : "bg-white/40"}`} />
+            <span className={`h-1.5 w-1.5 rounded-full ${isLight ? "bg-slate-500" : "bg-white/40"}`} />
           </div>
 
           <button
             onClick={() => onOpenApp("terminal")}
-            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs backdrop-blur-xl shadow-lg active:scale-95 transition ${
-              isLight
-                ? "bg-white/70 border border-slate-300 text-slate-800"
-                : "bg-black/40 border border-white/20 text-white/90"
-            }`}
+            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs backdrop-blur-xl shadow-lg active:scale-95 transition ${isLight
+                ? "bg-white/90 border border-slate-300 text-slate-950 font-semibold"
+                : "bg-black/40 border border-white/20 text-white/90 font-medium"
+              }`}
           >
             <Search className="h-3 w-3" />
-            <span className="text-[11px] font-medium">Search</span>
+            <span className="text-[11px]">Search</span>
           </button>
         </div>
       </main>
 
       {/* iOS Frosted Bottom Dock */}
       <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 w-[92%] max-w-sm">
-        <div className={`flex items-center justify-around rounded-[2rem] p-3 backdrop-blur-3xl shadow-2xl ${
-          isLight
+        <div className={`flex items-center justify-around rounded-[2rem] p-3 backdrop-blur-3xl shadow-2xl ${isLight
             ? "border border-white/80 bg-white/40 shadow-slate-900/10"
             : "border border-white/20 bg-white/15 shadow-black/40"
-        }`}>
+          }`}>
           {dockApps.map((app) => (
             <button
               key={app.id}
@@ -273,66 +259,10 @@ export function IOSShell({
 
         {/* iOS Home Indicator Bar */}
         <div
-          onClick={() => {
-            if (activeApp) onCloseApp(activeApp.id);
-          }}
-          className={`mx-auto mt-2 h-1 w-32 rounded-full cursor-pointer shadow-md transition ${
-            isLight ? "bg-slate-600 hover:bg-slate-900" : "bg-white/80 hover:bg-white"
-          }`}
+          className={`mx-auto mt-2 h-1 w-32 rounded-full cursor-pointer shadow-md transition ${isLight ? "bg-slate-600 hover:bg-slate-900" : "bg-white/80 hover:bg-white"
+            }`}
         />
       </nav>
-
-      {/* iOS Full-Screen Modal App Sheet */}
-      {activeApp && (
-        <div className={`fixed inset-0 z-50 flex flex-col animate-in slide-in-from-bottom duration-300 ${
-          isLight ? "bg-slate-50 text-slate-900" : "bg-slate-950 text-white"
-        }`}>
-          {/* iOS Modal Top Grabber & Navigation Bar */}
-          <div className={`flex flex-col border-b pt-3 px-4 pb-2 backdrop-blur-xl ${
-            isLight ? "border-slate-200 bg-white/95" : "border-white/10 bg-slate-900/90"
-          }`}>
-            {/* Grabber */}
-            <div className={`mx-auto h-1 w-10 rounded-full mb-2 ${isLight ? "bg-slate-300" : "bg-white/30"}`} />
-
-            <div className="flex items-center justify-between">
-              <button
-                onClick={() => onCloseApp(activeApp.id)}
-                className="flex items-center gap-0.5 text-xs font-semibold text-cyan-600 active:opacity-60"
-              >
-                <ChevronLeft className="h-4 w-4" /> Home
-              </button>
-
-              <span className={`text-xs font-bold truncate max-w-[200px] ${
-                isLight ? "text-slate-900" : "text-white"
-              }`}>
-                {activeApp.title}
-              </span>
-
-              <button
-                onClick={() => onCloseApp(activeApp.id)}
-                className="text-xs font-bold text-cyan-600 active:opacity-60"
-              >
-                Done
-              </button>
-            </div>
-          </div>
-
-          {/* Modal Body */}
-          <div className={`flex-1 overflow-hidden pb-6 ${isLight ? "bg-slate-50" : "bg-slate-950"}`}>
-            {/* App content rendered via Desktop */}
-          </div>
-
-          {/* Bottom Swipe Bar to close */}
-          <div
-            onClick={() => onCloseApp(activeApp.id)}
-            className={`h-6 flex items-center justify-center cursor-pointer ${
-              isLight ? "bg-slate-50" : "bg-slate-950"
-            }`}
-          >
-            <div className={`h-1 w-32 rounded-full ${isLight ? "bg-slate-400 hover:bg-slate-600" : "bg-white/60 hover:bg-white"}`} />
-          </div>
-        </div>
-      )}
     </div>
   );
 }

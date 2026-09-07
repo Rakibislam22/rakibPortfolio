@@ -175,7 +175,7 @@ export const portfolioData: PortfolioData = {
       ]
     }
   ],
-   
+
   education: [
     {
       degree: "B.Sc. in Computer Science & Engineering",
@@ -217,52 +217,108 @@ export const portfolioData: PortfolioData = {
     }
   ],
   wallpapers: [
+    // Dark Wallpapers
     {
       id: "win-bloom",
       name: "Windows 11 Bloom Dark",
       thumbnail: "bg-gradient-to-tr from-sky-950 via-slate-900 to-blue-900",
       bgClass: "bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-900 via-slate-950 to-black",
-      osTarget: "windows"
+      osTarget: "windows",
+      mode: "dark"
     },
     {
       id: "mac-sonoma",
       name: "macOS Sequoia Glow",
       thumbnail: "bg-gradient-to-tr from-orange-900 via-purple-950 to-indigo-950",
       bgClass: "bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-purple-950 via-slate-950 to-orange-950/40",
-      osTarget: "macos"
+      osTarget: "macos",
+      mode: "dark"
     },
     {
       id: "ubuntu-noble",
       name: "Ubuntu 24.04 Yaru Aubergine",
       thumbnail: "bg-gradient-to-tr from-orange-950 via-purple-950 to-stone-950",
       bgClass: "bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-amber-950/60 via-purple-950 to-stone-950",
-      osTarget: "ubuntu"
+      osTarget: "ubuntu",
+      mode: "dark"
     },
     {
       id: "ios-ribbon",
       name: "Apple iOS 18 Nebula",
       thumbnail: "bg-gradient-to-tr from-blue-900 via-indigo-950 to-purple-950",
       bgClass: "bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-950 via-indigo-950 to-[#04060d]",
-      osTarget: "ios"
+      osTarget: "ios",
+      mode: "dark"
     },
     {
       id: "android-dunes",
       name: "Android 15 Material Dunes",
       thumbnail: "bg-gradient-to-tr from-teal-900 via-slate-950 to-emerald-950",
       bgClass: "bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-teal-950/80 via-slate-950 to-[#04090f]",
-      osTarget: "android"
+      osTarget: "android",
+      mode: "dark"
     },
     {
       id: "cyber-matrix",
       name: "Cyberpunk Grid",
       thumbnail: "bg-gradient-to-tr from-cyan-950 via-slate-950 to-emerald-950",
-      bgClass: "bg-[#060c18]"
+      bgClass: "bg-[#060c18]",
+      mode: "dark"
     },
     {
       id: "deep-space",
       name: "Deep Space Aurora",
       thumbnail: "bg-gradient-to-tr from-indigo-950 via-slate-950 to-teal-950",
-      bgClass: "bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900 via-black to-[#050b14]"
+      bgClass: "bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900 via-black to-[#050b14]",
+      mode: "dark"
+    },
+    // Light Wallpapers
+    {
+      id: "win-bloom-light",
+      name: "Windows 11 Bloom Light",
+      thumbnail: "bg-gradient-to-tr from-sky-200 via-blue-100 to-slate-100",
+      bgClass: "bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-200 via-blue-50 to-slate-100",
+      osTarget: "windows",
+      mode: "light"
+    },
+    {
+      id: "mac-sequoia-light",
+      name: "macOS Sequoia Light",
+      thumbnail: "bg-gradient-to-tr from-amber-200 via-rose-100 to-orange-100",
+      bgClass: "bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-amber-100 via-rose-50 to-orange-100",
+      osTarget: "macos",
+      mode: "light"
+    },
+    {
+      id: "ubuntu-light",
+      name: "Ubuntu 24.04 Yaru Light",
+      thumbnail: "bg-gradient-to-tr from-orange-200 via-stone-200 to-amber-100",
+      bgClass: "bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-orange-100 via-stone-100 to-amber-50",
+      osTarget: "ubuntu",
+      mode: "light"
+    },
+    {
+      id: "ios-light",
+      name: "Apple iOS 18 Light Silk",
+      thumbnail: "bg-gradient-to-tr from-sky-200 via-blue-100 to-indigo-100",
+      bgClass: "bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-100 via-sky-50 to-indigo-100",
+      osTarget: "ios",
+      mode: "light"
+    },
+    {
+      id: "android-light",
+      name: "Android 15 Material You Light",
+      thumbnail: "bg-gradient-to-tr from-teal-200 via-slate-100 to-emerald-100",
+      bgClass: "bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-teal-100 via-slate-50 to-emerald-100",
+      osTarget: "android",
+      mode: "light"
+    },
+    {
+      id: "clean-paper-light",
+      name: "Minimalist Studio Light",
+      thumbnail: "bg-gradient-to-tr from-slate-200 via-white to-sky-100",
+      bgClass: "bg-gradient-to-tr from-slate-100 via-white to-sky-50",
+      mode: "light"
     }
   ]
 };
