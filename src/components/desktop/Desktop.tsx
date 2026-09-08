@@ -112,7 +112,6 @@ export function Desktop() {
       data-theme={themeMode}
       onContextMenu={handleContextMenu}
       onClick={handleDesktopClick}
-      className={`relative h-screen w-screen overflow-hidden ${wallpaper} transition-colors duration-500 font-sans select-none`}
       className={`relative h-screen w-screen overflow-hidden ${wallpaper} transition-colors duration-500 font-sans select-none ${isLight ? "text-slate-950" : "text-slate-100"}`}
     >
       {/* Background Noise & Lighting */}

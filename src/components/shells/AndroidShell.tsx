@@ -162,15 +162,11 @@ export function AndroidShell({
   return (
     <div className="relative h-full w-full flex flex-col justify-between overflow-hidden select-none">
       {/* Android Top Status Bar */}
-      <header className={`fixed top-0 left-0 right-0 z-40 flex h-8 items-center justify-between px-5 text-xs ${isLight ? "text-slate-950 font-semibold" : "text-slate-200"
-        }`}>
       <header className={`fixed top-0 left-0 right-0 z-40 flex h-8 items-center justify-between px-5 text-xs ${isLight ? "text-slate-950 font-bold" : "text-slate-200"}`}>
         <div className="flex items-center gap-2">
-          <span className="font-bold text-[13px] font-mono tracking-tight">
           <span className={`font-black text-[13px] font-mono tracking-tight ${isLight ? "text-slate-950" : "text-white"}`}>
             {currentTime}
           </span>
-          <div className={`hidden sm:flex items-center gap-1.5 ${isLight ? "text-slate-700" : "text-slate-400"}`}>
           <div className={`hidden sm:flex items-center gap-1.5 ${isLight ? "text-slate-800" : "text-slate-400"}`}>
             <Mail className="h-3 w-3" />
             <Terminal className="h-3 w-3 text-emerald-600" />
@@ -187,11 +183,8 @@ export function AndroidShell({
               {isLight ? <Moon className="h-3.5 w-3.5 text-indigo-700 font-bold" /> : <Sun className="h-3.5 w-3.5 text-amber-300" />}
             </button>
           )}
-          <Wifi className="h-3.5 w-3.5" />
           <Wifi className={`h-3.5 w-3.5 ${isLight ? "text-slate-950" : "text-white"}`} />
           <div className="flex items-center gap-1 text-[11px] font-mono font-bold">
-            <span>98%</span>
-            <div className={`w-5 h-2.5 rounded-xs border p-0.5 flex items-center ${isLight ? "border-slate-900" : "border-white"}`}>
             <span className={isLight ? "text-slate-950 font-black" : "text-white"}>98%</span>
             <div className={`w-5 h-2.5 rounded-xs border p-0.5 flex items-center ${isLight ? "border-slate-950" : "border-white"}`}>
               <div className="h-full w-[90%] bg-emerald-500 rounded-xs" />
@@ -204,11 +197,9 @@ export function AndroidShell({
       <main className="flex-1 flex flex-col justify-between pt-12 pb-20 px-5 max-w-sm mx-auto w-full">
         {/* Material You At-A-Glance Widget */}
         <div className="space-y-1.5 mt-2">
-          <div className={`flex items-center gap-2 font-bold text-sm ${isLight ? "text-slate-950" : "text-white"}`}>
           <div className={`flex items-center gap-2 font-black text-sm ${isLight ? "text-slate-950 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]" : "text-white"}`}>
             <span>{currentDate}</span>
             <span>•</span>
-            <span className={`flex items-center gap-1 ${isLight ? "text-amber-800 font-bold" : "text-amber-300"}`}>
             <span className={`flex items-center gap-1 ${isLight ? "text-amber-950 font-black" : "text-amber-300"}`}>
               <Sun className="h-4 w-4 text-amber-500" /> 28°C
             </span>
@@ -216,16 +207,13 @@ export function AndroidShell({
           <div
             onClick={onOpenSettings}
             className={`rounded-2xl p-3.5 backdrop-blur-md border cursor-pointer transition active:scale-[0.98] ${isLight
-              ? "border-teal-400 bg-white/90 shadow-md hover:border-teal-500"
               ? "border-teal-500/70 bg-white/95 shadow-md hover:border-teal-600"
               : "border-teal-500/20 bg-teal-950/40 hover:border-teal-500/40"
               }`}
           >
-            <p className={`text-xs font-bold ${isLight ? "text-teal-950" : "text-teal-300"}`}>
             <p className={`text-xs font-black ${isLight ? "text-teal-950" : "text-teal-300"}`}>
               {portfolioData.name} • Developer Hub
             </p>
-            <p className={`text-[11px] mt-0.5 font-medium ${isLight ? "text-slate-700" : "text-slate-300"}`}>
             <p className={`text-[11px] mt-0.5 font-bold ${isLight ? "text-slate-800" : "text-slate-300"}`}>
               {portfolioData.title} • Available for Projects
             </p>
@@ -241,7 +229,6 @@ export function AndroidShell({
               className="flex flex-col items-center gap-1.5 active:scale-90 transition-transform duration-150 focus:outline-none"
             >
               {getMaterialIcon(app.id)}
-              <span className={`text-[11px] font-bold text-center leading-tight ${isLight ? "text-slate-950 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]" : "text-slate-100 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
               <span className={`text-[11px] font-bold text-center leading-tight ${isLight ? "text-slate-950 drop-shadow-[0_1px_2px_rgba(255,255,255,0.95)]" : "text-slate-100 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
                 }`}>
                 {app.name}
@@ -255,7 +242,6 @@ export function AndroidShell({
           <div
             onClick={() => onOpenApp("terminal")}
             className={`flex items-center justify-between rounded-full px-4 py-2.5 backdrop-blur-xl shadow-lg cursor-pointer transition border ${isLight
-              ? "border-slate-300 bg-white/95 text-slate-900 hover:border-slate-400"
               ? "border-slate-300 bg-white/95 text-slate-950 shadow-md hover:border-slate-400"
               : "border-white/15 bg-slate-900/80 hover:border-white/30"
               }`}
@@ -280,13 +266,11 @@ export function AndroidShell({
                   d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.35 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
                 />
               </svg>
-              <span className={`text-xs ${isLight ? "text-slate-700 font-medium" : "text-slate-400"}`}>
               <span className={`text-xs ${isLight ? "text-slate-800 font-bold" : "text-slate-400"}`}>
                 Search portfolio...
               </span>
             </div>
 
-            <div className={`flex items-center gap-2 ${isLight ? "text-slate-700" : "text-slate-400"}`}>
             <div className={`flex items-center gap-2 ${isLight ? "text-slate-800" : "text-slate-400"}`}>
               <Mic className="h-3.5 w-3.5" />
               <Camera className="h-3.5 w-3.5" />
@@ -297,7 +281,6 @@ export function AndroidShell({
 
       {/* Android Modern Gesture Navigation Bar */}
       <div className="fixed bottom-2 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
-        <div className={`h-1 w-28 rounded-full ${isLight ? "bg-slate-400/60" : "bg-white/40"
         <div className={`h-1 w-28 rounded-full ${isLight ? "bg-slate-600" : "bg-white/40"
           }`} />
       </div>

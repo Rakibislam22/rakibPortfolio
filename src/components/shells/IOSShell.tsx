@@ -141,11 +141,8 @@ export function IOSShell({
   return (
     <div className="relative h-full w-full flex flex-col justify-between overflow-hidden select-none">
       {/* iOS Top Status Bar */}
-      <header className={`fixed top-0 left-0 right-0 z-40 flex h-11 items-center justify-between px-6 pt-1 text-xs font-semibold backdrop-blur-xs ${isLight ? "text-slate-950" : "text-white"
-        }`}>
       <header className={`fixed top-0 left-0 right-0 z-40 flex h-11 items-center justify-between px-6 pt-1 text-xs font-semibold backdrop-blur-md ${isLight ? "text-slate-950 font-bold" : "text-white"}`}>
         {/* Left: Time */}
-        <span className="font-bold tracking-tight text-[13px]">{currentTime}</span>
         <span className={`font-black tracking-tight text-[13px] ${isLight ? "text-slate-950" : "text-white"}`}>{currentTime}</span>
 
         {/* Center: Dynamic Island */}
@@ -180,9 +177,6 @@ export function IOSShell({
               {isLight ? <Moon className="h-3.5 w-3.5 text-indigo-700 font-bold" /> : <Sun className="h-3.5 w-3.5 text-amber-300" />}
             </button>
           )}
-          <span className="text-[10px] font-black">5G</span>
-          <Wifi className="h-3.5 w-3.5" />
-          <Battery className="h-4 w-4" />
           <span className={`text-[10px] font-black ${isLight ? "text-slate-950" : "text-white"}`}>5G</span>
           <Wifi className={`h-3.5 w-3.5 ${isLight ? "text-slate-950" : "text-white"}`} />
           <Battery className={`h-4 w-4 ${isLight ? "text-slate-950" : "text-white"}`} />
@@ -193,17 +187,14 @@ export function IOSShell({
       <main className="flex-1 flex flex-col items-center justify-between pt-16 pb-28 px-4 max-w-md mx-auto w-full">
         {/* Date & Greeting Widget */}
         <div className="w-full text-center my-2 space-y-1">
-          <p className={`text-xs font-bold uppercase tracking-widest ${isLight ? "text-cyan-900" : "text-sky-200/90 drop-shadow"
           <p className={`text-xs font-black uppercase tracking-widest ${isLight ? "text-cyan-950 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]" : "text-sky-200/90 drop-shadow"
             }`}>
             {currentDate}
           </p>
-          <h2 className={`text-2xl font-black tracking-tight ${isLight ? "text-slate-950" : "text-white drop-shadow-md"
           <h2 className={`text-2xl font-black tracking-tight ${isLight ? "text-slate-950 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]" : "text-white drop-shadow-md"
             }`}>
             {portfolioData.name}
           </h2>
-          <p className={`text-xs font-semibold ${isLight ? "text-slate-800" : "text-slate-200 drop-shadow"}`}>
           <p className={`text-xs font-bold ${isLight ? "text-slate-900 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]" : "text-slate-200 drop-shadow"}`}>
             {portfolioData.title}
           </p>
@@ -218,7 +209,6 @@ export function IOSShell({
               className="flex flex-col items-center gap-1.5 active:scale-90 transition-transform duration-150 focus:outline-none"
             >
               {getIOSIcon(app.id)}
-              <span className={`text-[11px] font-bold text-center leading-tight ${isLight ? "text-slate-950 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]" : "text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
               <span className={`text-[11px] font-bold text-center leading-tight ${isLight ? "text-slate-950 drop-shadow-[0_1px_2px_rgba(255,255,255,0.95)]" : "text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
                 }`}>
                 {app.name}
@@ -231,8 +221,6 @@ export function IOSShell({
         <div className="flex flex-col items-center gap-3">
           <div className="flex items-center gap-1.5">
             <span className={`h-1.5 w-1.5 rounded-full shadow-sm ${isLight ? "bg-slate-900" : "bg-white"}`} />
-            <span className={`h-1.5 w-1.5 rounded-full ${isLight ? "bg-slate-500" : "bg-white/40"}`} />
-            <span className={`h-1.5 w-1.5 rounded-full ${isLight ? "bg-slate-500" : "bg-white/40"}`} />
             <span className={`h-1.5 w-1.5 rounded-full ${isLight ? "bg-slate-600" : "bg-white/40"}`} />
             <span className={`h-1.5 w-1.5 rounded-full ${isLight ? "bg-slate-600" : "bg-white/40"}`} />
           </div>
@@ -240,13 +228,10 @@ export function IOSShell({
           <button
             onClick={() => onOpenApp("terminal")}
             className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs backdrop-blur-xl shadow-lg active:scale-95 transition ${isLight
-              ? "bg-white/90 border border-slate-300 text-slate-950 font-semibold"
               ? "bg-white/95 border border-slate-300 text-slate-950 font-bold shadow-md"
               : "bg-black/40 border border-white/20 text-white/90 font-medium"
               }`}
           >
-            <Search className="h-3 w-3" />
-            <span className="text-[11px]">Search</span>
             <Search className={`h-3 w-3 ${isLight ? "text-slate-950" : "text-white/90"}`} />
             <span className={`text-[11px] ${isLight ? "text-slate-950 font-bold" : "text-white/90"}`}>Search</span>
           </button>
