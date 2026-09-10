@@ -1,36 +1,159 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rakib Portfolio — Multi-OS Interactive OS Portfolio
 
-## Getting Started
+An interactive, native-mirroring portfolio that recreates multiple operating system shells (Windows, macOS, iOS, Android, Ubuntu) as an immersive portfolio experience for Md Rakib Ali.
 
-First, run the development server:
+This repository is built with modern web tooling and the Next.js App Router.
 
-```bash
+---
+
+## Quick overview
+
+- Author: Md Rakib Ali
+- Purpose: A portfolio site showcasing projects and skills presented as a multi-OS desktop environment.
+- Entry: open http://localhost:3000 after starting the dev server
+
+---
+
+## Tech stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- Vercel (recommended for deployment)
+- Optional tooling: pnpm, yarn or npm (pnpm recommended)
+
+---
+
+## Key features
+
+- Automatic OS detection and device-adaptive rendering (Windows, macOS, iOS, Android, Ubuntu)
+- Draggable, resizable windows with z-index and focus management
+- Multiple desktop apps: Projects, Skills, About, Resume, YouTube player, Terminal, Settings, Recycle Bin
+- Centralized project & content data at [src/data/portfolioData.ts](C:/Users/Rakib/Documents/WEB/rakibPortfolio/src/data/portfolioData.ts)
+
+---
+
+## Prerequisites
+
+- Node.js 18+ (LTS recommended)
+- Git
+- A package manager: pnpm (recommended), npm or yarn
+
+If using pnpm (recommended) install it globally:
+
+```powershell
+npm install -g pnpm
+```
+
+---
+
+## Setup (local development)
+
+1. Clone the repository (if you haven't already):
+
+```powershell
+git clone https://github.com/Rakibislam22/rakibPortfolio.git
+cd rakibPortfolio
+```
+
+2. Install dependencies (choose one):
+
+```powershell
+pnpm install
+# or
+npm install
+# or
+yarn
+```
+
+3. Start the development server:
+
+```powershell
+pnpm dev
+# or
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open your browser at http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Build and production
 
-## Learn More
+Build the optimized production app:
 
-To learn more about Next.js, take a look at the following resources:
+```powershell
+pnpm build
+# or
+npm run build
+# or
+yarn build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Run the production server locally:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```powershell
+pnpm start
+# or
+npm start
+# or
+yarn start
+```
 
-## Deploy on Vercel
+For deployment, Vercel is recommended — this project is configured to work well with Vercel's platform.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Important files & where to change content
+
+- Site data (projects, skills, wallpapers, resume content): [src/data/portfolioData.ts](C:/Users/Rakib/Documents/WEB/rakibPortfolio/src/data/portfolioData.ts)
+- Global OS state and window defaults: [src/context/OSContext.tsx](C:/Users/Rakib/Documents/WEB/rakibPortfolio/src/context/OSContext.tsx)
+- Desktop canvas and app renderer: [src/components/desktop/Desktop.tsx](C:/Users/Rakib/Documents/WEB/rakibPortfolio/src/components/desktop/Desktop.tsx)
+- App root and routing: [src/app/page.tsx](C:/Users/Rakib/Documents/WEB/rakibPortfolio/src/app/page.tsx)
+
+When adding a new desktop application:
+1. Create the React component under [src/components/apps/YourNewApp.tsx](C:/Users/Rakib/Documents/WEB/rakibPortfolio/src/components/apps/YourNewApp.tsx).
+2. Add the app ID to the `AppId` type in [src/types/os.ts](C:/Users/Rakib/Documents/WEB/rakibPortfolio/src/types/os.ts).
+3. Add initial window state in [src/context/OSContext.tsx](C:/Users/Rakib/Documents/WEB/rakibPortfolio/src/context/OSContext.tsx).
+4. Add a desktop icon entry in `defaultDesktopItems` inside [src/data/portfolioData.ts](C:/Users/Rakib/Documents/WEB/rakibPortfolio/src/data/portfolioData.ts).
+5. Map the app component inside `renderAppContent` in [src/components/desktop/Desktop.tsx](C:/Users/Rakib/Documents/WEB/rakibPortfolio/src/components/desktop/Desktop.tsx).
+
+---
+
+## Environment variables
+
+This project does not require any secret environment variables to run in development by default. If runtime API keys or other values are needed later, add them to a `.env.local` (gitignored) file and reference them via process.env.
+
+---
+
+## Contributing
+
+Contributions are welcome. Suggested workflow:
+
+1. Fork the repo
+2. Create a feature branch for your change
+3. Run the project and add tests if appropriate
+4. Open a pull request describing your changes
+
+Please keep TypeScript types and linting consistent with the existing code.
+
+---
+
+## Troubleshooting
+
+- If you see missing dependency errors, run the chosen package manager's install command again
+- If the dev server fails to start, ensure Node.js and the package manager versions meet the prerequisites
+- If styling looks broken, ensure Tailwind processed successfully (the dev server normally handles this)
+
+---
+
+## License
+
+MIT
+
+---
+
+*Generated/updated README — for developer reference see [AGENTS.md](C:/Users/Rakib/Documents/WEB/rakibPortfolio/AGENTS.md).*
