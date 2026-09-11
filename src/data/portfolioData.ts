@@ -277,7 +277,7 @@ export const portfolioData: PortfolioData = {
       id: "win-bloom-light",
       name: "Windows 11 Bloom Light",
       thumbnail: "bg-gradient-to-tr from-sky-200 via-blue-100 to-slate-100",
-      bgClass: "bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-200 via-blue-50 to-slate-100",
+      bgClass: "bg-gradient-to-b from-sky-50 to-white",
       osTarget: "windows",
       mode: "light"
     },
@@ -285,7 +285,7 @@ export const portfolioData: PortfolioData = {
       id: "mac-sequoia-light",
       name: "macOS Sequoia Light",
       thumbnail: "bg-gradient-to-tr from-amber-200 via-rose-100 to-orange-100",
-      bgClass: "bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-amber-100 via-rose-50 to-orange-100",
+      bgClass: "bg-gradient-to-b from-amber-50 to-white",
       osTarget: "macos",
       mode: "light"
     },
@@ -293,7 +293,7 @@ export const portfolioData: PortfolioData = {
       id: "ubuntu-light",
       name: "Ubuntu 24.04 Yaru Light",
       thumbnail: "bg-gradient-to-tr from-orange-200 via-stone-200 to-amber-100",
-      bgClass: "bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-orange-100 via-stone-100 to-amber-50",
+      bgClass: "bg-gradient-to-b from-orange-50 to-white",
       osTarget: "ubuntu",
       mode: "light"
     },
@@ -301,7 +301,7 @@ export const portfolioData: PortfolioData = {
       id: "ios-light",
       name: "Apple iOS 18 Light Silk",
       thumbnail: "bg-gradient-to-tr from-sky-200 via-blue-100 to-indigo-100",
-      bgClass: "bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-100 via-sky-50 to-indigo-100",
+      bgClass: "bg-gradient-to-b from-blue-50 to-white",
       osTarget: "ios",
       mode: "light"
     },
@@ -309,7 +309,7 @@ export const portfolioData: PortfolioData = {
       id: "android-light",
       name: "Android 15 Material You Light",
       thumbnail: "bg-gradient-to-tr from-teal-200 via-slate-100 to-emerald-100",
-      bgClass: "bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] from-teal-100 via-slate-50 to-emerald-100",
+      bgClass: "bg-gradient-to-b from-teal-50 to-white",
       osTarget: "android",
       mode: "light"
     },
@@ -317,7 +317,7 @@ export const portfolioData: PortfolioData = {
       id: "clean-paper-light",
       name: "Minimalist Studio Light",
       thumbnail: "bg-gradient-to-tr from-slate-200 via-white to-sky-100",
-      bgClass: "bg-gradient-to-tr from-slate-100 via-white to-sky-50",
+      bgClass: "bg-white",
       mode: "light"
     }
   ]
