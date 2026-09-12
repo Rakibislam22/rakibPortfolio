@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { AppId, OSType, ThemeMode, WindowInstance } from "@/types/os";
 import { portfolioData } from "@/data/portfolioData";
 import { useOSDetection } from "@/hooks/useOSDetection";
@@ -144,31 +144,37 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
   const [userOSOverride, setUserOSOverride] = useState<OSType | null>(null);
   const currentOS = userOSOverride ?? detectedOS;
 
-  const [themeMode, setThemeModeState] = useState<ThemeMode>(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const savedTheme = localStorage.getItem("rakib_portfolio_theme") as ThemeMode | null;
-        if (savedTheme === "light" || savedTheme === "dark") {
-          return savedTheme;
-        }
-      } catch { }
-    }
-    return "dark";
-  });
+  // Always start with "dark" on both server and client to avoid SSR hydration mismatch.
+  // A useEffect below syncs the persisted theme from localStorage after hydration.
+  const [themeMode, setThemeModeState] = useState<ThemeMode>("dark");
+
+  // After hydration, restore saved theme from localStorage (client-only).
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("rakib_portfolio_theme") as ThemeMode | null;
+      if (saved === "light" || saved === "dark") {
+        setThemeModeState(saved);
+      }
+    } catch { }
+  }, []);
+
+  // wallpaperOverride is set only when the user manually picks a wallpaper from Settings.
+  // When theme switches, it's cleared so the live-computed defaultWallpaper takes over.
+  const defaultWallpaper =
+    portfolioData.wallpapers.find((w) => w.osTarget === currentOS && w.mode === themeMode)?.bgClass ||
+    portfolioData.wallpapers.find((w) => w.mode === themeMode)?.bgClass ||
+    portfolioData.wallpapers[0].bgClass;
+  const [wallpaperOverride, setWallpaperOverride] = useState<string | null>(null);
+  const wallpaper = wallpaperOverride ?? defaultWallpaper;
 
   const setThemeMode = (mode: ThemeMode) => {
     setThemeModeState(mode);
     try {
       localStorage.setItem("rakib_portfolio_theme", mode);
     } catch { }
-
-    // Automatically switch wallpaper to matching theme wallpaper if available
-    const matchingWp = portfolioData.wallpapers.find(
-      (w) => w.osTarget === currentOS && w.mode === mode
-    ) || portfolioData.wallpapers.find((w) => w.mode === mode);
-    if (matchingWp) {
-      setWallpaperOverride(matchingWp.bgClass);
-    }
+    // Clear any manual wallpaper override so defaultWallpaper (computed from
+    // the new themeMode on the next render) automatically shows the right background.
+    setWallpaperOverride(null);
   };
 
   const toggleThemeMode = () => {
@@ -176,11 +182,6 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
     setThemeMode(nextMode);
   };
 
-  const defaultWallpaper =
-    portfolioData.wallpapers.find((w) => w.osTarget === currentOS && (!w.mode || w.mode === themeMode))?.bgClass ||
-    portfolioData.wallpapers[0].bgClass;
-  const [wallpaperOverride, setWallpaperOverride] = useState<string | null>(null);
-  const wallpaper = wallpaperOverride ?? defaultWallpaper;
 
   const [windows, setWindows] = useState<Record<AppId, WindowInstance>>(initialWindows);
   const [activeWindowId, setActiveWindowId] = useState<AppId | null>("about");
@@ -191,12 +192,10 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
     try {
       localStorage.setItem("rakib_portfolio_os", os);
     } catch { }
-    const matchingWp = portfolioData.wallpapers.find(
-      (w) => w.osTarget === os && (!w.mode || w.mode === themeMode)
-    ) || portfolioData.wallpapers.find((w) => w.osTarget === os);
-    if (matchingWp) {
-      setWallpaperOverride(matchingWp.bgClass);
-    }
+    const matchingWp =
+      portfolioData.wallpapers.find((w) => w.osTarget === os && (!w.mode || w.mode === themeMode)) ||
+      portfolioData.wallpapers.find((w) => w.osTarget === os);
+    setWallpaperOverride(matchingWp ? matchingWp.bgClass : null);
   };
 
   const setWallpaper = (wp: string) => {
