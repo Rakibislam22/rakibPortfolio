@@ -323,7 +323,6 @@ export const portfolioData: PortfolioData = {
   ]
 };
 
-
 export const defaultDesktopItems: DesktopItem[] = [
   {
     id: "about",
