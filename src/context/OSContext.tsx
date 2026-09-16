@@ -113,7 +113,6 @@ const initialWindows: Record<AppId, WindowInstance> = {
     size: { width: 780, height: 500 },
     component: null
   },
-  
   settings: {
     id: "settings",
     title: "System Settings",
