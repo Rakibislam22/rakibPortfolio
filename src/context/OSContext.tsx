@@ -297,7 +297,6 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
       }
     }));
   };
-
   const updateSize = (id: string, size: { width: number; height: number }) => {
     const appId = id as AppId;
     setWindows((prev) => ({
