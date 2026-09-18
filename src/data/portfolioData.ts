@@ -175,7 +175,6 @@ export const portfolioData: PortfolioData = {
       ]
     }
   ],
-
   education: [
     {
       degree: "B.Sc. in Computer Science & Engineering",
