@@ -215,6 +215,7 @@ export const portfolioData: PortfolioData = {
       ]
     }
   ],
+  
   wallpapers: [
     // Dark Wallpapers
     {
